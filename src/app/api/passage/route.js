@@ -45,11 +45,11 @@ export async function PUT(req,res){
         const obj={
             attempts:passageExists.attempts+1,
             avgaccuracy:((passageExists.avgaccuracy*passageExists.attempts)+payload.accuracy)/(passageExists.attempts+1),
-            avgwpm:((passageExists.avgwpm*passageExists.attempts)+payload.wpm)/(passageExists.attempts+1),
+            avgwpm:Math.floor(((passageExists.avgwpm*passageExists.attempts)+payload.wpm)/(passageExists.attempts+1)),
             winner:{
                 name:(passageExists.winner.name=="" ||(passageExists.winner.maxwpm<payload.wpm && payload.accuracy>95))? payload.name:passageExists.winner.name,
                 username:(passageExists.winner.username=="" ||(passageExists.winner.maxwpm<payload.wpm && payload.accuracy>95))? payload.username:passageExists.winner.username,
-                maxwpm:(passageExists.winner.maxwpm==0 ||(passageExists.winner.maxwpm<payload.wpm && payload.accuracy>95) || (passageExists.winner.username===payload.username && passageExists.winner.maxwpm<payload.wpm))?payload.wpm:passageExists.winner.maxwpm,
+                maxwpm:Math.floor((passageExists.winner.maxwpm==0 ||(passageExists.winner.maxwpm<payload.wpm && payload.accuracy>95) || (passageExists.winner.username===payload.username && passageExists.winner.maxwpm<payload.wpm))?payload.wpm:passageExists.winner.maxwpm),
                 maxaccuracy:(passageExists.winner.maxaccuracy==0||(passageExists.winner.maxaccuracy<payload.maxaccuracy && payload.accuracy>95) || (passageExists.winner.username===payload.username && passageExists.winner.maxaccuracy<payload.accuracy))?payload.accuracy:passageExists.winner.maxaccuracy
             },
             usernames:{
@@ -57,7 +57,7 @@ export async function PUT(req,res){
                 [payload.username]:{
                     name:payload.name,
                     maxaccuracy:(passageExists.usernames[payload.username]==undefined || passageExists.usernames[payload.username].maxaccuracy<payload.accuracy)?payload.accuracy:passageExists.usernames[payload.username].maxaccuracy,
-                    maxwpm:(passageExists.usernames[payload.username]==undefined || passageExists.usernames[payload.username].maxwpm<payload.wpm)?payload.wpm:passageExists.usernames[payload.username].maxwpm
+                    maxwpm:Math.floor((passageExists.usernames[payload.username]==undefined || passageExists.usernames[payload.username].maxwpm<payload.wpm)?payload.wpm:passageExists.usernames[payload.username].maxwpm)
                 }
             }
         }
@@ -74,9 +74,9 @@ export async function PUT(req,res){
             const userachievenments={
                 attempts:1,
                 maxaccuracy:payload.accuracy,
-                maxwpm:payload.wpm,
+                maxwpm:Math.floor(payload.wpm),
                 avegareaccuracy:payload.accuracy,
-                averagewpm:payload.wpm
+                averagewpm:Math.floor(payload.wpm)
             }
             const updateQuery = {
                 $set: { [`passagelist.${payload.passageid}`]: userachievenments},
@@ -89,9 +89,9 @@ export async function PUT(req,res){
             const userachievenments={
                 attempts:useremail.passagelist[payload.passageid].attempts+1,
                 maxaccuracy:(useremail.passagelist[payload.passageid].maxaccuracy==0 || useremail.passagelist[payload.passageid].maxaccuracy<payload.accuracy)?payload.accuracy:useremail.passagelist[payload.passageid].maxaccuracy,
-                maxwpm:(useremail.passagelist[payload.passageid].maxwpm==0 || useremail.passagelist[payload.passageid].maxwpm<payload.wpm)?payload.wpm:useremail.passagelist[payload.passageid].maxwpm,
+                maxwpm:Math.floor((useremail.passagelist[payload.passageid].maxwpm==0 || useremail.passagelist[payload.passageid].maxwpm<payload.wpm)?payload.wpm:useremail.passagelist[payload.passageid].maxwpm),
                 avegareaccuracy:((useremail.passagelist[payload.passageid].avegareaccuracy*useremail.passagelist[payload.passageid].attempts)+payload.accuracy)/(useremail.passagelist[payload.passageid].attempts+1),
-                averagewpm:((useremail.passagelist[payload.passageid].averagewpm*useremail.passagelist[payload.passageid].attempts)+payload.wpm)/(useremail.passagelist[payload.passageid].attempts+1)
+                averagewpm:Math.floor(((useremail.passagelist[payload.passageid].averagewpm*useremail.passagelist[payload.passageid].attempts)+payload.wpm)/(useremail.passagelist[payload.passageid].attempts+1))
             }
             const updateQuery = {
                 $set: { [`passagelist.${payload.passageid}`]: userachievenments},
