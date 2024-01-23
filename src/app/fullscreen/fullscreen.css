@@ -1,0 +1,64 @@
+.fullscreenNavbar{
+    display:flex;
+    justify-content:space-between;
+    margin-left:10px;
+    margin-right:15px;
+    margin-top: 10px;
+    /* border:1px solid black;  */
+    height:6vh;
+    align-items: center;
+}
+
+.fullscreenSignupbutton,
+.fullscreenLoginbutton,
+.fullscreenAboutusButton{
+    color:black;
+    border:1px solid black;
+    border-radius: 8px;
+    text-decoration: none;
+    padding:15px;
+    font-weight: 500;
+    transition: all;
+    transform-origin: center;
+}
+
+.fullscreenSignupbutton:hover,
+.fullscreenLoginbutton:hover,
+.fullscreenAboutusButton:hover{
+    cursor:pointer;
+    transform: scale(1.4);
+    font-weight: 700;
+    border: 2px solid black;
+}
+
+.fullscreenSignupbutton,
+.fullscreenLoginbutton{
+    margin-right: 10px;
+}
+
+.fullscreenProfilebutton{
+    color:black;
+    font-weight: 500;
+    font-size:larger;
+    margin-right:10px;
+    text-decoration: none;
+}
+
+.fullscreenProfilebutton:hover{
+    cursor:pointer;
+    text-decoration: underline;
+}
+
+.fullscreenDropdownMenu{
+    font-weight: 500;
+    margin-right: 10px;
+    border:1px dashed black;
+    padding:7px;
+    padding-top:3px;
+    padding-bottom: 3px;
+    font-size:medium;
+}
+.fullscreenDropdownMenu:hover{
+    cursor:pointer;
+    border:1px solid black;
+}
