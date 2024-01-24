@@ -1,6 +1,6 @@
 .fullscreenNavbar{
     display:flex;
-    justify-content:space-between;
+    justify-content:end;
     margin-left:10px;
     margin-right:15px;
     margin-top: 10px;
@@ -10,8 +10,7 @@
 }
 
 .fullscreenSignupbutton,
-.fullscreenLoginbutton,
-.fullscreenAboutusButton{
+.fullscreenLoginbutton{
     color:black;
     border:1px solid black;
     border-radius: 8px;
@@ -23,8 +22,7 @@
 }
 
 .fullscreenSignupbutton:hover,
-.fullscreenLoginbutton:hover,
-.fullscreenAboutusButton:hover{
+.fullscreenLoginbutton:hover{
     cursor:pointer;
     transform: scale(1.4);
     font-weight: 700;
@@ -61,4 +59,126 @@
 .fullscreenDropdownMenu:hover{
     cursor:pointer;
     border:1px solid black;
+}
+
+
+
+
+
+
+
+.fullscreenLogin {
+    height: 60vh;
+    width: 40vw;
+    margin-top: 20vh;
+    margin-left: 30vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border: 2px solid transparent; 
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.622), 0 0 0 12px white;
+    border-radius: 8px;
+}
+
+.fullscreenImageContainer{
+    height: 22vh;
+    /* border:1px solid black; */
+    margin-bottom:10px;
+}
+
+.fullscreenform{
+    padding:10px;
+    /* border:1px solid black; */
+    width:35vw;
+    padding:15px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+
+.fullscreenbox{
+    margin-bottom:10px;
+    border:2px solid black;
+    border-radius: 8px;
+    width:30vw;
+    height:6vh;
+    font-size:large;
+    padding-left:10px;
+}
+
+.fullscreenSubmitButton{
+    margin-top:10px;
+    border:2px solid black;
+    border-radius: 8px;
+    width:20vw;
+    height:6vh;
+    background-color: green;
+    color:white;
+    transition: all 0.1s;
+    transform-origin: center;
+    font-size:30px;
+    font-weight: 600;
+    text-align: center;
+    padding-top:2vh;
+}
+.fullscreenSubmitButton:hover{
+    cursor:pointer;
+    transform: scale(1.02);
+    /* font-weight: 700; */
+    border: 3px solid black;
+}
+
+.fullscreenAdditionals{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width:39vw;
+    /* border:1px solid black;   */
+    margin-top:10px;
+    align-items: center;
+}
+
+.fullscreenredirect{
+    color:black;
+    font-weight: 500;
+    font-size:18    px;
+}
+
+.fullscreenredirectButton{
+    text-decoration: none;
+
+}
+
+
+
+
+.fullscreenSignup {
+    height: 80vh;
+    width: 40vw;
+    margin-top: 10vh;
+    margin-left: 30vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border: 2px solid transparent; 
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.622), 0 0 0 12px white;
+    border-radius: 8px;
+}
+
+.fullscreenform{
+    padding:10px;
+    /* border:1px solid black; */
+    width:35vw;
+    padding:15px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
 }

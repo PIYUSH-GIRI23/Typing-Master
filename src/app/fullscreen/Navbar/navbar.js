@@ -5,9 +5,6 @@ import Link from 'next/link'
 export default function navbar() {
   return (
     <div className="fullscreenNavbar">
-      <div className="fullscreenAboutus">
-        <Link href="#" className="fullscreenAboutusButton">About Us</Link>
-      </div >
       <div className="fullscreenLoginNo">
         <Link href="/fullscreen/signup" className="fullscreenSignupbutton">Signup</Link>
         <Link href="/fullscreen/login" className="fullscreenLoginbutton">Login</Link>
