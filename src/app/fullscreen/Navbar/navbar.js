@@ -9,8 +9,8 @@ export default function navbar() {
         <Link href="#" className="fullscreenAboutusButton">About Us</Link>
       </div >
       <div className="fullscreenLoginNo">
-        <Link href="#" className="fullscreenSignupbutton">Signup</Link>
-        <Link href="#" className="fullscreenLoginbutton">Login</Link>
+        <Link href="/fullscreen/signup" className="fullscreenSignupbutton">Signup</Link>
+        <Link href="/fullscreen/login" className="fullscreenLoginbutton">Login</Link>
       </div>
       <div className="fullscreenLoginYes">
         <div>
