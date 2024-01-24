@@ -40,7 +40,7 @@ export default function navbar() {
               <div className="fullscreendropdownContent">
                 <Link href="#" className="fullscreendropdownchild">Account Details</Link>
                 <hr className="hr"/>
-                <Link href="#" className="fullscreendropdownchild">Statistics</Link> 
+                <Link href="/fullscreen/statistics" className="fullscreendropdownchild">Statistics</Link> 
                 <hr className="hr"/>
                 <div className="fullscreendropdownchild" id="logout" onClick={handleLogout}>Logout</div>
               </div>

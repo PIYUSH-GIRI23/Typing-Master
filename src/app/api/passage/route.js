@@ -1,5 +1,6 @@
 import connectDB from "@/app/database/db";
 import { NextResponse } from "next/server";
+import Middleware from "@/app/api/passage/middleware";
 export async function PUT(req,res){
     try{
         // connecting to db
@@ -8,12 +9,18 @@ export async function PUT(req,res){
         // getting payload(email/username , password)
         const payload=await req.json();
 
+        // verify user
+        let response= await Middleware(req,payload.username,users)
+        if(response.status!=200){
+            return NextResponse.json({error:"Invalid Token",status:401});
+        }
+
         // finding user thorugh email
         const useremail=await users.findOne({email:payload.email});
 
         // if user not found
         if(!useremail){
-            return NextResponse.json({error:"User does not exists"},{status:404});
+            return NextResponse.json({error:"User does not exists",status:404});
         }
 
         // finding record of passage in passage collection
@@ -107,10 +114,10 @@ export async function PUT(req,res){
         if(useremail.maxaccuracy<payload.accuracy){
             await users.updateOne({email:payload.email},{$set:{maxaccuracy:payload.accuracy}});
         }
-        return NextResponse.json({message:"Success"},{status:200});
+        return NextResponse.json({message:"Success",status:200});
     }
     catch(error){
         console.log(error);
-        return NextResponse.json({error:"Internal Server Error"},{status:500});
+        return NextResponse.json({error:"Internal Server Error",status:500});
     }
 }
