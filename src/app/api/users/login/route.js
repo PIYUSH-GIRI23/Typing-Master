@@ -19,7 +19,7 @@ export async function POST(req,res){
             $or: [{ email: payload.email }, { username: payload.email }],
           });
         if(!userdata){
-            return NextResponse.json({error:"User not found"},{status:404});
+            return NextResponse.json({error:"User not found",status:404});
         }
 
         // encryting password
@@ -32,14 +32,14 @@ export async function POST(req,res){
                 name:payload.username,
             }
             const token=jwt.sign(jwtpayload,secretkey,{expiresIn:"1h"});
-            return NextResponse.json({message:"Success",logintoken:token},{status:200});
+            return NextResponse.json({message:"Success",logintoken:token,username:userdata.username,status:200});
         }
 
         // if password does not match
-        return NextResponse.json({error:"invalid credentials"},{status:401});
+        return NextResponse.json({message:"invalid credentials",status:401});
     }
     catch(error){
         console.log(error);
-        return NextResponse.json({error:"Internal Server Error"},{status:500});
+        return NextResponse.json({error:"Internal Server Error",status:500});
     }
 }

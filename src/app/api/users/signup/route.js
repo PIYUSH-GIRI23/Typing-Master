@@ -15,20 +15,15 @@ export async function POST(req,res){
         if(payload.username[0]=='@') payload.username=payload.username.slice(1);
 
         // checking if user exists
-        const userExists = await users.findOne({
-            $or: [
-              { email: payload.email },
-              { contact: payload.contact }
-            ]
-        });
+        const userExists = await users.findOne({email: payload.email})  
         if (userExists) {
-            return NextResponse.json({ error: "User already exists" }, { status: 403 });
+            return NextResponse.json({ error: "User already exists" ,status:403});
         }
 
         // checking if username exists
         const username=await users.findOne({username:payload.username});
         if(username){
-            return NextResponse.json({error:"Username already exists"},{status:405});
+            return NextResponse.json({error:"Username already exists",status:405});
         }
 
         // encryting password
@@ -39,7 +34,6 @@ export async function POST(req,res){
         const obj={
             name:payload.name,
             email:payload.email,
-            contact:payload.contact,
             username:payload.username,
             password:hashpassword,
             passagelist:{},
@@ -50,23 +44,12 @@ export async function POST(req,res){
 
         // if insertion is successfull
         if(insertuser){
-            const userid=await users.findOne({email:payload.email});
-            const jwtpayload={
-                userId:userid._id.toString(),
-                name:payload.username,
-            }
-            
-            // assigning token
-            const token=jwt.sign(jwtpayload,secretkey,{expiresIn:"1h"});
-            return NextResponse.json({message:"Success",signuptoken:token},{status:200});
+            return NextResponse.json({message:"Success",status:200});
         }
-
-        // error while inserting user
-        return NextResponse.json({error:"Error while inserting user"},{status:501});
     }
     catch(error){
         console.log(error);
-        return NextResponse.json({error:"Internal Server Error"},{status:500});
+        return NextResponse.json({error:"Internal Server Error",status:500});
     }
     
 }
