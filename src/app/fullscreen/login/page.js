@@ -42,7 +42,7 @@ const page = () => {
         username: response.username,
         logintoken: response.logintoken
       };
-      localStorage.setItem("typingmastercredentials", JSON.stringify(userData));
+      localStorage.setItem("rapidkeyscredentials", JSON.stringify(userData));
       // const storedData = JSON.parse(userData); --> use this to get items
 
       // redirect to home page

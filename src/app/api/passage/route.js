@@ -16,10 +16,10 @@ export async function PUT(req,res){
         }
 
         // finding user thorugh email
-        const useremail=await users.findOne({email:payload.email});
+        const username=await users.findOne({username:payload.username});
 
         // if user not found
-        if(!useremail){
+        if(!username){
             return NextResponse.json({error:"User does not exists",status:404});
         }
 
@@ -54,7 +54,7 @@ export async function PUT(req,res){
             avgaccuracy:((passageExists.avgaccuracy*passageExists.attempts)+payload.accuracy)/(passageExists.attempts+1),
             avgwpm:Math.floor(((passageExists.avgwpm*passageExists.attempts)+payload.wpm)/(passageExists.attempts+1)),
             winner:{
-                name:(passageExists.winner.name=="" ||(passageExists.winner.maxwpm<payload.wpm && payload.accuracy>95))? payload.name:passageExists.winner.name,
+                name:(passageExists.winner.name=="" ||(passageExists.winner.maxwpm<payload.wpm && payload.accuracy>95))? username.name:passageExists.winner.name,
                 username:(passageExists.winner.username=="" ||(passageExists.winner.maxwpm<payload.wpm && payload.accuracy>95))? payload.username:passageExists.winner.username,
                 maxwpm:Math.floor((passageExists.winner.maxwpm==0 ||(passageExists.winner.maxwpm<payload.wpm && payload.accuracy>95) || (passageExists.winner.username===payload.username && passageExists.winner.maxwpm<payload.wpm))?payload.wpm:passageExists.winner.maxwpm),
                 maxaccuracy:(passageExists.winner.maxaccuracy==0||(passageExists.winner.maxaccuracy<payload.maxaccuracy && payload.accuracy>95) || (passageExists.winner.username===payload.username && passageExists.winner.maxaccuracy<payload.accuracy))?payload.accuracy:passageExists.winner.maxaccuracy
@@ -62,7 +62,7 @@ export async function PUT(req,res){
             usernames:{
                 ...passageExists.usernames, // creates new object otherwise it will update the existing object
                 [payload.username]:{
-                    name:payload.name,
+                    name:username.name,
                     maxaccuracy:(passageExists.usernames[payload.username]==undefined || passageExists.usernames[payload.username].maxaccuracy<payload.accuracy)?payload.accuracy:passageExists.usernames[payload.username].maxaccuracy,
                     maxwpm:Math.floor((passageExists.usernames[payload.username]==undefined || passageExists.usernames[payload.username].maxwpm<payload.wpm)?payload.wpm:passageExists.usernames[payload.username].maxwpm)
                 }
@@ -77,7 +77,7 @@ export async function PUT(req,res){
         // updating user record 
 
         // if user has not attempted the passage
-        if(useremail.passagelist[payload.passageid]==undefined){
+        if(username.passagelist[payload.passageid]==undefined){
             const userachievenments={
                 attempts:1,
                 maxaccuracy:payload.accuracy,
@@ -88,33 +88,66 @@ export async function PUT(req,res){
             const updateQuery = {
                 $set: { [`passagelist.${payload.passageid}`]: userachievenments},
             };
-            await users.updateOne({ email: payload.email }, updateQuery, { upsert: true });
+            await users.updateOne({username:payload.username}, updateQuery, { upsert: true });
         }
-
+        
         // if user has attempted the passage
         else{
             const userachievenments={
-                attempts:useremail.passagelist[payload.passageid].attempts+1,
-                maxaccuracy:(useremail.passagelist[payload.passageid].maxaccuracy==0 || useremail.passagelist[payload.passageid].maxaccuracy<payload.accuracy)?payload.accuracy:useremail.passagelist[payload.passageid].maxaccuracy,
-                maxwpm:Math.floor((useremail.passagelist[payload.passageid].maxwpm==0 || useremail.passagelist[payload.passageid].maxwpm<payload.wpm)?payload.wpm:useremail.passagelist[payload.passageid].maxwpm),
-                avegareaccuracy:((useremail.passagelist[payload.passageid].avegareaccuracy*useremail.passagelist[payload.passageid].attempts)+payload.accuracy)/(useremail.passagelist[payload.passageid].attempts+1),
-                averagewpm:Math.floor(((useremail.passagelist[payload.passageid].averagewpm*useremail.passagelist[payload.passageid].attempts)+payload.wpm)/(useremail.passagelist[payload.passageid].attempts+1))
+                attempts:username.passagelist[payload.passageid].attempts+1,
+                maxaccuracy:(username.passagelist[payload.passageid].maxaccuracy==0 || username.passagelist[payload.passageid].maxaccuracy<payload.accuracy)?payload.accuracy:username.passagelist[payload.passageid].maxaccuracy,
+                maxwpm:Math.floor((username.passagelist[payload.passageid].maxwpm==0 || username.passagelist[payload.passageid].maxwpm<payload.wpm)?payload.wpm:username.passagelist[payload.passageid].maxwpm),
+                avegareaccuracy:((username.passagelist[payload.passageid].avegareaccuracy*username.passagelist[payload.passageid].attempts)+payload.accuracy)/(username.passagelist[payload.passageid].attempts+1),
+                averagewpm:Math.floor(((username.passagelist[payload.passageid].averagewpm*username.passagelist[payload.passageid].attempts)+payload.wpm)/(username.passagelist[payload.passageid].attempts+1))
             }
             const updateQuery = {
                 $set: { [`passagelist.${payload.passageid}`]: userachievenments},
             };
-    
-            await users.updateOne({ email: payload.email }, updateQuery, { upsert: true });
+            
+            await users.updateOne({username:payload.username}, updateQuery, { upsert: true });
         }
-
+        const currentDate = new Date();
+        const formattedDate = currentDate.getDate()
+        if(username.datewise[formattedDate]==undefined){
+            const datewise={
+                [formattedDate]:{
+                    attempts:1,
+                    maxaccuracy:payload.accuracy,
+                    maxwpm:Math.floor(payload.wpm),
+                }
+            }
+            const updateQuery = {
+                $set: { datewise },
+            };
+            await users.updateOne({ username:payload.username }, updateQuery, { upsert: true });
+        }
+        else{
+            const datewise={
+                ...username.datewise,
+                [formattedDate]:{
+                    attempts:username.datewise[formattedDate].attempts+1,
+                    maxaccuracy:Math.floor((username.datewise[formattedDate].maxaccuracy==0 || username.datewise[formattedDate].maxaccuracy<payload.accuracy)?payload.accuracy:username.datewise[formattedDate].maxaccuracy),
+                    maxwpm:Math.floor((username.datewise[formattedDate].maxwpm==0 || username.datewise[formattedDate].maxwpm<payload.wpm)?payload.wpm:username.datewise[formattedDate].maxwpm),
+                }
+            }
+            const updateQuery = {
+                $set: { datewise },
+            };
+            await users.updateOne({ username:payload.username}, updateQuery, { upsert: true });
+        }
+        
         // updating maxwpm and maxaccuracy
-        if(useremail.maxwpm<payload.wpm){
-            await users.updateOne({email:payload.email},{$set:{maxwpm:payload.wpm}});
+        if(username.maxwpm<payload.wpm){
+            await users.updateOne({username:payload.username},{$set:{maxwpm:payload.wpm}});
         }
-        if(useremail.maxaccuracy<payload.accuracy){
-            await users.updateOne({email:payload.email},{$set:{maxaccuracy:payload.accuracy}});
+        if(username.maxaccuracy<payload.accuracy){
+            await users.updateOne({username:payload.username},{$set:{maxaccuracy:payload.accuracy}});
         }
+        // updating totalattempt and totalpassages
+        await users.updateOne({username:payload.username},{$set:{totalattempt:username.totalattempt+1}});
+        await users.updateOne({username:payload.username},{$set:{totalpassages:username.totalpassages+1}});
         return NextResponse.json({message:"Success",status:200});
+
     }
     catch(error){
         console.log(error);

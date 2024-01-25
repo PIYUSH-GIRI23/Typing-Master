@@ -31,14 +31,20 @@ export async function POST(req,res){
         const hashpassword=await bcrypt.hash(payload.password,salt);
 
         // inserting user
+        const currentDate = new Date();
+        const formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear() % 100}`;
         const obj={
-            name:payload.name,
+            name:payload.name.split(" ").map((word)=>word.charAt(0).toUpperCase()+word.slice(1)).join(" "),
             email:payload.email,
             username:payload.username,
             password:hashpassword,
             passagelist:{},
+            datewise:{},
             maxwpm:0,
-            maxaccuracy:0
+            maxaccuracy:0,
+            createdAt:formattedDate,
+            totalattempt:0,
+            totalpassages:0
         }
         const insertuser=await users.insertOne(obj);
 

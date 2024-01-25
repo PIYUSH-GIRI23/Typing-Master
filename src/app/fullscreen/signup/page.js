@@ -60,7 +60,9 @@ const page = () => {
     }
     else{
       // redirect to login page
-      router.push("/fullscreen/login")
+      setTimeout(()=>{
+        router.push("/fullscreen/login")
+      },1000)
     }
   }
   return (

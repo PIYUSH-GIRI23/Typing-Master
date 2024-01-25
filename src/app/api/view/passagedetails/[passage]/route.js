@@ -12,7 +12,7 @@ export async function GET(req,res){
         const passagedetails=await passage.findOne({passageid:passage_id});
         // if passage not found
         if(!passagedetails){
-            return NextResponse.json({error:"Passage not found"},{status:404});
+            return NextResponse.json({error:"Passage not found",status:404});
         }
 
         // if passage found , then return the details
@@ -27,10 +27,10 @@ export async function GET(req,res){
             },
             usernames:passagedetails.usernames
         }
-        return NextResponse.json(obj,{status:200});
+        return NextResponse.json({obj:obj,status:200});
     }
     catch(error){
         console.log(error);
-        return NextResponse.json({error:"Internal Server Error"},{status:500});
+        return NextResponse.json({error:"Internal Server Error",status:500} );
     }
 }
