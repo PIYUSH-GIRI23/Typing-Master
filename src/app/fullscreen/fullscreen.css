@@ -285,7 +285,6 @@
     border-bottom:1px solid black;
     width:52vw;
     overflow: auto !important;
-    resize: both;
 }
 
 .fullscreenleftbottom{
@@ -478,7 +477,7 @@
     margin-bottom:1vh;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -543,7 +542,7 @@
     margin-bottom:1vh;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     overflow:auto;
 }
@@ -601,7 +600,7 @@
 
 .fullscreenrightaccountchildgenerated{
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     width:40vw;
     /* border:1px solid black;   */
