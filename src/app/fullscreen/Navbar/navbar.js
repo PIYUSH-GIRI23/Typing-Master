@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 export default function navbar() {
   const router=useRouter();
-  const [islogin, setLogin] = useState(localStorage && false);
+  const [islogin, setLogin] = useState(localStorage.getItem("rapidkeyscredentials") && false);
   const [loginusername,setLoginUsername] = useState("");
   useEffect(()=>{
     const data=localStorage.getItem("rapidkeyscredentials");
@@ -27,10 +27,10 @@ export default function navbar() {
       <div className="fullscreenredirectHome">
             <Link href="/" className='fullscreenredirectHomeButton'>
                 <Image
-                    src='/croppedlogo.png'
-                    width={250}
+                    src='/final3.png'
+                    width={260}
                     height={120}
-                    className='fullscreenredirectHomeImage'
+                    className='fullscreenredirectHomeImagelogo'
                     alt="home button here"
                     priority={true}
                 />

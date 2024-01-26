@@ -10,10 +10,10 @@ export async function DELETE(req,res){
         // getting payload(email/username , password)
         const payload=await req.json();
 
-        // let response= await Middleware(req,payload.username,users)
-        // if(response.status!=200){
-        //     return NextResponse.json({error:"Invalid Token",status:401});
-        // }
+        let response= await Middleware(req,payload.username,users)
+        if(response.status!=200){
+            return NextResponse.json({error:"Invalid Token",status:401});
+        }
         
         // finding user
         const username=await users.findOne({username:payload.username});

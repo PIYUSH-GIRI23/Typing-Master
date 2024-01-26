@@ -6,6 +6,7 @@ export default async function middleware(req,username,users){
     try{
         const headersList = headers()
         const token = headersList.get('logintoken')
+        console.log(token)
         if(!token){
             return {message:"Invalid Token",status:401};
         }

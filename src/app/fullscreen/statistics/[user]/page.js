@@ -45,7 +45,7 @@ const page =({params}) => {
       );
       setChartData(temp);
     }
-    console.log(chartData)
+    // console.log(chartData)
   }, [userdetails.datewise]);
 
   return (

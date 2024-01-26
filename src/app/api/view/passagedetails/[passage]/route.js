@@ -20,14 +20,15 @@ export async function GET(req,res){
             avgaccuracy:passagedetails.avgaccuracy,
             avgwpm:passagedetails.avgwpm,
             attempts:passagedetails.attempts,
-            winnner:{
+            winner:{
                 maxaccuracy:passagedetails.winner.maxaccuracy,
                 maxwpm:passagedetails.winner.maxwpm,
-                username:passagedetails.winner.username
+                username:passagedetails.winner.username,
+                name:passagedetails.winner.name
             },
             usernames:passagedetails.usernames
         }
-        return NextResponse.json({obj:obj,status:200});
+        return NextResponse.json({details:obj,status:200});
     }
     catch(error){
         console.log(error);

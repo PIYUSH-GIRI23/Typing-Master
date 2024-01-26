@@ -69,9 +69,9 @@ const page = () => {
     <div className="fullscreenSignup">
       <div className="fullscreenImageContainer">
         <Image 
-            src='/croppedlogo.png'
-            width={420}
-            height={180}
+            src='/final3.png'
+            width={400}
+            height={130}
             className='fullscreenImage'
             alt="logo here"
             priority={true}

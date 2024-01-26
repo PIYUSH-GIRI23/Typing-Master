@@ -10,10 +10,6 @@ const page = ({params}) => {
   const [isnotlogin,setisnotlogin]=useState(false);
   const [usernotfound,setUsernotfound]=useState(false);
 
-  const [deletemodal,setdeletemodal]=useState(false);
-  const [resetmodal,setresetmodal]=useState(false);
-  const [updatemodal,setupdatemodal]=useState(false);
-
   const  [userdetails,setUserdetails]=useState({});
   const [chartData, setChartData] = useState([]);
   let url=process.env.NEXT_PUBLIC_BACKEND;
@@ -27,7 +23,7 @@ const page = ({params}) => {
       setUsernotfound(false);
       let {details,extra}=res;
       setUserdetails(details);
-      console.log(details)
+      // console.log(details)
     }
     else{
       setUsernotfound(true);
@@ -61,6 +57,9 @@ const page = ({params}) => {
     }
     else setisnotlogin(true);
   },[])
+  const handledelete=()=>{
+    console.log("clicked")
+  }
   return (
     <div className="fullscreenaccount">
         <Navbar/>
@@ -105,6 +104,7 @@ const page = ({params}) => {
                   Total passages : {userdetails.totalpassages}
                 </div>
               </div>
+              <hr className="hr"/>
               <div className='fullscreenaccountaccountleftsidebottom'>
                 {/* max wpm,max accuracy , total attempt/test , graph(chota sa) in form of buttons*/}
                 <div className="fullscreenrightaccountchild" name="name">
@@ -154,9 +154,9 @@ const page = ({params}) => {
                 */}
               <div className='fullscreenaccountaccountrightsidebottom'>
                 <div className="fullscreenrightaccountchildbutton" name="maxwpm">
-                  <div className="fullscreenrightsidetopupdate" name="name">Update</div>
-                  <div className="fullscreenrightsidetopdelete" name="delete">Delete</div>
-                  <div className="fullscreenrightsidetopreset" name="reset">Reset</div>
+                  <Link className="fullscreenrightsidetopupdate" name="name" href="/fullscreen/modify/update">Update</Link>
+                  <Link className="fullscreenrightsidetopdelete" name="delete" href="/fullscreen/modify/delete">Delete</Link>
+                  <Link className="fullscreenrightsidetopreset" name="reset" href="/fullscreen/modify/reset">Reset</Link>
                   {/* update a/c delete a/c and delete all past activities
                   modal open
                   redirect to login page

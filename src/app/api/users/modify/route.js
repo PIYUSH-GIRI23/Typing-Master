@@ -12,13 +12,13 @@ export async function DELETE(req,res){
 
         let response= await Middleware(req,payload.username,users)
         if(response.status!=200){
-            return NextResponse.json({error:"Invalid Token",status:401});
+            return NextResponse.json({error:"Invalid Token",status:403});
         }
 
         // finding user
         const username=await users.findOne({username:payload.username});
         if(!username){
-            return NextResponse.json({error:"User not found"},{status:404});
+            return NextResponse.json({error:"User not found",status:404});
         }
 
         // if user found then verify the password
@@ -44,16 +44,16 @@ export async function DELETE(req,res){
             }});
 
             // if password matches then delete the user
-            // await users.deleteOne({username:payload.username});
-            return NextResponse.json({message:"Successfully deleted"},{status:200});
+            await users.deleteOne({username:payload.username});
+            return NextResponse.json({message:"Successfully deleted",status:200});
         }
 
         // if password does not match
-        return NextResponse.json({error:"invalid credentials"},{status:401});
+        return NextResponse.json({error:"invalid credentials",status:401});
     }
     catch(error){
         console.log(error);
-        return NextResponse.json({error:"Internal Server Error"},{status:500});
+        return NextResponse.json({error:"Internal Server Error",status:500});
     }
 }
 export async function PUT(req,res){
@@ -63,17 +63,17 @@ export async function PUT(req,res){
 
         // getting payload(email/username , password)
         const payload=await req.json();
-
-        // let response= await Middleware(req,payload.username,users)
-        // if(response.status!=200){
-        //     return NextResponse.json({error:"Invalid Token",status:401});
-        // }
+        // console.log(payload)
+        let response= await Middleware(req,payload.username,users)
+        if(response.status!=200){
+            return NextResponse.json({error:"Invalid Token",status:403});
+        }
 
         // finding user
         const username=await users.findOne({username:payload.username});
         // if user not found
         if(!username){
-            return NextResponse.json({error:"User not found"},{status:404});
+            return NextResponse.json({error:"User not found",status:404});
         }
 
 
@@ -83,7 +83,7 @@ export async function PUT(req,res){
             // if password matches then update the user
             const updateQuery = {
                 $set: {
-                  username: (payload.newusername!=payload.username)?payload.newusername:payload.username,
+                  username: payload.newusername, // updating username
                   password: await bcrypt.hash(payload.newpassword, 10), // encrypting new password
                 },
             };
@@ -91,18 +91,20 @@ export async function PUT(req,res){
             await users.updateOne({ username:payload.username }, updateQuery);
 
             // now change in passage collection
-            if(payload.newusername!=payload.username){
                 // change in usernames
-                const updatePassage=await passage.updateMany({
-                    [`usernames.${payload.username}`]: {
+                const updatePassage = await passage.updateMany(
+                    {
+                      [`usernames.${payload.username}`]: {
                         $exists: true,
                         $not: { $eq: {} }
+                      }
+                    },
+                    {
+                      $rename: {
+                        [`usernames.${payload.username}`]: `usernames.${payload.newusername}`
+                      }
                     }
-                },{
-                    $set:{
-                        [`usernames.${payload.username}`]:payload.newusername
-                    }
-                });
+                  );
                 // change in winner
                 const updateWinner=await passage.updateMany({
                     "winner.username":payload.username
@@ -111,15 +113,15 @@ export async function PUT(req,res){
                         "winner.username":payload.newusername
                     }
                 });
-            }
-            return NextResponse.json({message:"Successfully Updated"},{status:200});
+            
+            return NextResponse.json({message:"Successfully Updated",status:200});
         }
 
         // if password does not match
-        return NextResponse.json({error:"invalid credentials"},{status:401});
+        return NextResponse.json({error:"invalid credentials",status:401});
     }
     catch(error){
         console.log(error);
-        return NextResponse.json({error:"Internal Server Error"},{status:500});
+        return NextResponse.json({error:"Internal Server Error",status:500});
     }
 }

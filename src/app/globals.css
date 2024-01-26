@@ -1,0 +1,7 @@
+.bgimage {
+    background:rgba(61,61,61,255);
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* opacity: 0.8; */
+    /* filter: brightness(1.2);  */
+}

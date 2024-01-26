@@ -64,7 +64,7 @@ const page = () => {
     <div className="fullscreenLogin">
       <div className="fullscreenImageContainer">
         <Image 
-            src='/croppedlogo.png'
+            src='/final3.png'
             width={420}
             height={180}
             className='fullscreenImage'

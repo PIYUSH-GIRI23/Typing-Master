@@ -97,7 +97,7 @@ export async function PUT(req,res){
                 attempts:username.passagelist[payload.passageid].attempts+1,
                 maxaccuracy:(username.passagelist[payload.passageid].maxaccuracy==0 || username.passagelist[payload.passageid].maxaccuracy<payload.accuracy)?payload.accuracy:username.passagelist[payload.passageid].maxaccuracy,
                 maxwpm:Math.floor((username.passagelist[payload.passageid].maxwpm==0 || username.passagelist[payload.passageid].maxwpm<payload.wpm)?payload.wpm:username.passagelist[payload.passageid].maxwpm),
-                avegareaccuracy:((username.passagelist[payload.passageid].avegareaccuracy*username.passagelist[payload.passageid].attempts)+payload.accuracy)/(username.passagelist[payload.passageid].attempts+1),
+                avegareaccuracy:Math.floor(((username.passagelist[payload.passageid].avegareaccuracy*username.passagelist[payload.passageid].attempts)+payload.accuracy)/(username.passagelist[payload.passageid].attempts+1)),
                 averagewpm:Math.floor(((username.passagelist[payload.passageid].averagewpm*username.passagelist[payload.passageid].attempts)+payload.wpm)/(username.passagelist[payload.passageid].attempts+1))
             }
             const updateQuery = {
