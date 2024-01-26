@@ -5,6 +5,8 @@ export default function Home() {
   return (
     <main>
       <Navbar />
+      {/* api call to ./fullscreen/typing */}
     </main>
   );
 }
+

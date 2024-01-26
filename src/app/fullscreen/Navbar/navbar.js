@@ -51,6 +51,8 @@ export default function navbar() {
             <span  className="fullscreenDropdownMenu" onClick={()=>setDropdownVisible(!isDropdownVisible)}>V</span>
             {isDropdownVisible && (
               <div className="fullscreendropdownContent">
+                <Link href="/" className="fullscreendropdownchild">Home</Link>
+                <hr className="hr"/>
                 <Link href={`/fullscreen/statistics/accountdetails/${loginusername}`} className="fullscreendropdownchild">Account Details</Link>
                 <hr className="hr"/>
                 <Link href={`/fullscreen/statistics/${loginusername}`} className="fullscreendropdownchild">Statistics</Link> 

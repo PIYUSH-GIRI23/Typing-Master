@@ -47,7 +47,7 @@ const page = ({params}) => {
             </div>
           </div>
           <div className="fullscreenspecificpassageleftsidebottom">
-            <Link className='fullscreenspecificpassageleftsidebottomebutton' href={`/fullscreen//${params.passage}`}>Take Test</Link>
+            <Link className='fullscreenspecificpassageleftsidebottomebutton' href={`/fullscreen/typing/${params.passage}`}>Take Test</Link>
           </div>
         </div>
         <div className="fullscreenspecificpassagerightside">
