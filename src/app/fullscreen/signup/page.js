@@ -11,7 +11,7 @@ const page = () => {
   const [passwordnotmatch,setPasswordnotmatch] = useState(false) /// check here
   const [serverError,setServerError] = useState(false) //500
   const defaultparams={
-    email:"Email or username",
+    email:"Email",
     password:"Password",
     confirm:"Confirm Password",
     name:"Name",
