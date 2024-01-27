@@ -110,6 +110,7 @@ export async function PUT(req,res){
         const formattedDate = currentDate.getDate()
         if(username.datewise[formattedDate]==undefined){
             const datewise={
+                ...username.datewise,
                 [formattedDate]:{
                     attempts:1,
                     maxaccuracy:payload.accuracy,
@@ -123,7 +124,7 @@ export async function PUT(req,res){
         }
         else{
             const datewise={
-                ...username.datewise,
+                ...datewise.formattedDate,
                 [formattedDate]:{
                     attempts:username.datewise[formattedDate].attempts+1,
                     maxaccuracy:Math.floor((username.datewise[formattedDate].maxaccuracy==0 || username.datewise[formattedDate].maxaccuracy<payload.accuracy)?payload.accuracy:username.datewise[formattedDate].maxaccuracy),

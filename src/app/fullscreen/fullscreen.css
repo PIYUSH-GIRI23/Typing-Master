@@ -19,6 +19,7 @@
     font-weight: 500;
     transition: all;
     transform-origin: center;
+    font-size:20px;
     }
     
     .fullscreenSignupbutton:hover,
