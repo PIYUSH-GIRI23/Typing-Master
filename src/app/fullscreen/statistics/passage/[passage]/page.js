@@ -32,7 +32,7 @@ const page = ({params}) => {
   return (
     <div>
       <Navbar/>
-      {localStorage.getItem("rapidkeyscredentials") && !passagenotfound &&
+      {localStorage.getItem("rapidkeyscredentials") && passagenotfound &&
       <div className='fullscreenspecificpassage'>
         <div className="fullscreenspecificpassageleftside">
           <div className="fullscreenspecificpassageleftsidetop">
@@ -47,6 +47,7 @@ const page = ({params}) => {
             </div>
           </div>
           <div className="fullscreenspecificpassageleftsidebottom">
+            <Link className='fullscreenspecificpassageleftsidebottomebutton' href={`/fullscreen/typing/showpara/${params.passage}`}>View Passage</Link>
             <Link className='fullscreenspecificpassageleftsidebottomebutton' href={`/fullscreen/typing/${params.passage}`}>Take Test</Link>
           </div>
         </div>

@@ -5,7 +5,7 @@ const bcrypt=require("bcryptjs");
 export async function DELETE(req,res){
     try{
         // connecting to db
-        const {users,passage}=await connectDB();
+        const {users,passage,leaderboard}=await connectDB();
 
         // getting payload(email/username , password)
         const payload=await req.json();
@@ -54,6 +54,14 @@ export async function DELETE(req,res){
                 }
             });
             
+
+            // in leaderboard collection , remove from usernames
+            const deleteLeaderboard=await leaderboard.deleteOne({
+                [payload.username]: {
+                    $exists: true,
+                    $not: { $eq: {} }
+                }
+            });
         
             return NextResponse.json({message:"Successfully deleted",status:200});
         }

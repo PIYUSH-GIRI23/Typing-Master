@@ -5,7 +5,7 @@ const bcrypt=require("bcryptjs");
 export async function DELETE(req,res){
     try{
         // connecting to db
-        const {users,passage}=await connectDB();
+        const {users,passage,leaderboard}=await connectDB();
 
         // getting payload(email/username , password)
         const payload=await req.json();
@@ -37,6 +37,7 @@ export async function DELETE(req,res){
             }
             }
         );
+        //remove null records
         const deletePassage2 = await passage.deleteMany({
             ["usernames"]: {
                 $exists: true,
@@ -45,6 +46,14 @@ export async function DELETE(req,res){
 
             // if password matches then delete the user
             await users.deleteOne({username:payload.username});
+
+            // delete from leaderboard
+            const deleteLeaderboard=await leaderboard.deleteOne({
+                [payload.username]: {
+                    $exists: true,
+                    $not: { $eq: {} }
+                }
+            });
             return NextResponse.json({message:"Successfully deleted",status:200});
         }
 
@@ -59,7 +68,7 @@ export async function DELETE(req,res){
 export async function PUT(req,res){
     try{
         // connecting to db
-        const {users,passage}=await connectDB();
+        const {users,passage,leaderboard}=await connectDB();
 
         // getting payload(email/username , password)
         const payload=await req.json();
@@ -113,6 +122,22 @@ export async function PUT(req,res){
                         "winner.username":payload.newusername
                     }
                 });
+
+
+                // change in leaderboard
+                const updateLeaderboard = await leaderboard.updateOne(
+                    {
+                      [payload.username]: {
+                        $exists: true,
+                        $not: { $eq: {} }
+                      }
+                    },
+                    {
+                      $rename: {
+                        [payload.username]: payload.newusername
+                      }
+                    }
+                  );
             
             return NextResponse.json({message:"Successfully Updated",status:200});
         }

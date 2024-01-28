@@ -17,8 +17,9 @@ async function connectDB() {
     const database = client.db('TypingMaster');
     const users = database.collection('Users');
     const passage=database.collection('Passage');
-    
-    return {users,passage};
+    const leaderboard=database.collection('Leaderboard');
+
+    return {users,passage,leaderboard};
   } catch (err) {
     console.error('Error connecting to database:', err);
     throw err;

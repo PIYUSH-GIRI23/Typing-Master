@@ -4,16 +4,16 @@ import Middleware from "@/app/api/passage/middleware";
 export async function PUT(req,res){
     try{
         // connecting to db
-        const {passage,users}=await connectDB();
+        const {passage,users,leaderboard}=await connectDB();
 
         // getting payload(email/username , password)
         const payload=await req.json();
 
-        // // verify user
-        // let response= await Middleware(req,payload.username,users)
-        // if(response.status!=200){
-        //     return NextResponse.json({error:"Invalid Token",status:401});
-        // }
+        // verify user
+        let response= await Middleware(req,payload.username,users)
+        if(response.status!=200){
+            return NextResponse.json({error:"Invalid Token",status:401});
+        }
 
         // finding user thorugh email
         const username=await users.findOne({username:payload.username});
@@ -51,19 +51,19 @@ export async function PUT(req,res){
         // creating obj for updating the record
         const obj={
             attempts:passageExists.attempts+1,
-            avgaccuracy:((passageExists.avgaccuracy*passageExists.attempts)+payload.accuracy)/(passageExists.attempts+1),
+            avgaccuracy:(((passageExists.avgaccuracy*passageExists.attempts)+payload.accuracy)/(passageExists.attempts+1)).toFixed(2),
             avgwpm:Math.floor(((passageExists.avgwpm*passageExists.attempts)+payload.wpm)/(passageExists.attempts+1)),
             winner:{
                 name:(passageExists.winner.name=="" ||(passageExists.winner.maxwpm<payload.wpm && payload.accuracy>95))? username.name:passageExists.winner.name,
                 username:(passageExists.winner.username=="" ||(passageExists.winner.maxwpm<payload.wpm && payload.accuracy>95))? payload.username:passageExists.winner.username,
                 maxwpm:Math.floor((passageExists.winner.maxwpm==0 ||(passageExists.winner.maxwpm<payload.wpm && payload.accuracy>95) || (passageExists.winner.username===payload.username && passageExists.winner.maxwpm<payload.wpm))?payload.wpm:passageExists.winner.maxwpm),
-                maxaccuracy:(passageExists.winner.maxaccuracy==0||(passageExists.winner.maxaccuracy<payload.maxaccuracy && payload.accuracy>95) || (passageExists.winner.username===payload.username && passageExists.winner.maxaccuracy<payload.accuracy))?payload.accuracy:passageExists.winner.maxaccuracy
+                maxaccuracy:(passageExists.winner.maxaccuracy==0||(passageExists.winner.maxaccuracy<payload.maxaccuracy && payload.accuracy>95) || (passageExists.winner.username===payload.username && passageExists.winner.maxaccuracy<payload.accuracy))?(payload.accuracy.toFixed(2)):passageExists.winner.maxaccuracy
             },
             usernames:{
                 ...passageExists.usernames, // creates new object otherwise it will update the existing object
                 [payload.username]:{
                     name:username.name,
-                    maxaccuracy:(passageExists.usernames[payload.username]==undefined || passageExists.usernames[payload.username].maxaccuracy<payload.accuracy)?payload.accuracy:passageExists.usernames[payload.username].maxaccuracy,
+                    maxaccuracy:(passageExists.usernames[payload.username]==undefined || passageExists.usernames[payload.username].maxaccuracy<payload.accuracy)?(payload.accuracy.toFixed(2)):passageExists.usernames[payload.username].maxaccuracy,
                     maxwpm:Math.floor((passageExists.usernames[payload.username]==undefined || passageExists.usernames[payload.username].maxwpm<payload.wpm)?payload.wpm:passageExists.usernames[payload.username].maxwpm)
                 }
             }
@@ -80,9 +80,9 @@ export async function PUT(req,res){
         if(username.passagelist[payload.passageid]==undefined){
             const userachievenments={
                 attempts:1,
-                maxaccuracy:payload.accuracy,
+                maxaccuracy:payload.accuracy.toFixed(2),
                 maxwpm:Math.floor(payload.wpm),
-                avegareaccuracy:payload.accuracy,
+                avegareaccuracy:payload.accuracy.toFixed(2),
                 averagewpm:Math.floor(payload.wpm)
             }
             const updateQuery = {
@@ -95,9 +95,9 @@ export async function PUT(req,res){
         else{
             const userachievenments={
                 attempts:username.passagelist[payload.passageid].attempts+1,
-                maxaccuracy:(username.passagelist[payload.passageid].maxaccuracy==0 || username.passagelist[payload.passageid].maxaccuracy<payload.accuracy)?payload.accuracy:username.passagelist[payload.passageid].maxaccuracy,
+                maxaccuracy:(username.passagelist[payload.passageid].maxaccuracy==0 || username.passagelist[payload.passageid].maxaccuracy<payload.accuracy)?(payload.accuracy.toFixed(2)):username.passagelist[payload.passageid].maxaccuracy,
                 maxwpm:Math.floor((username.passagelist[payload.passageid].maxwpm==0 || username.passagelist[payload.passageid].maxwpm<payload.wpm)?payload.wpm:username.passagelist[payload.passageid].maxwpm),
-                avegareaccuracy:Math.floor(((username.passagelist[payload.passageid].avegareaccuracy*username.passagelist[payload.passageid].attempts)+payload.accuracy)/(username.passagelist[payload.passageid].attempts+1)),
+                avegareaccuracy:(((username.passagelist[payload.passageid].avegareaccuracy*username.passagelist[payload.passageid].attempts)+payload.accuracy)/(username.passagelist[payload.passageid].attempts+1)).toFixed(2),
                 averagewpm:Math.floor(((username.passagelist[payload.passageid].averagewpm*username.passagelist[payload.passageid].attempts)+payload.wpm)/(username.passagelist[payload.passageid].attempts+1))
             }
             const updateQuery = {
@@ -113,7 +113,7 @@ export async function PUT(req,res){
                 ...username.datewise,
                 [formattedDate]:{
                     attempts:1,
-                    maxaccuracy:payload.accuracy,
+                    maxaccuracy:payload.accuracy.toFixed(2),
                     maxwpm:Math.floor(payload.wpm),
                 }
             }
@@ -124,11 +124,11 @@ export async function PUT(req,res){
         }
         else{
             const datewise={
-                ...datewise.formattedDate,
+                ...username.datewise,
                 [formattedDate]:{
                     attempts:username.datewise[formattedDate].attempts+1,
-                    maxaccuracy:Math.floor((username.datewise[formattedDate].maxaccuracy==0 || username.datewise[formattedDate].maxaccuracy<payload.accuracy)?payload.accuracy:username.datewise[formattedDate].maxaccuracy),
-                    maxwpm:Math.floor((username.datewise[formattedDate].maxwpm==0 || username.datewise[formattedDate].maxwpm<payload.wpm)?payload.wpm:username.datewise[formattedDate].maxwpm),
+                    maxaccuracy:((username.datewise[formattedDate].maxaccuracy==0 || username.datewise[formattedDate].maxaccuracy<payload.accuracy)?payload.accuracy:username.datewise[formattedDate].maxaccuracy),
+                    maxwpm:Math.floor((username.datewise[formattedDate].maxwpm==0 || username.datewise[formattedDate].maxwpm<payload.wpm)?payload.wpm:username.datewise[formattedDate].maxwpm).toFixed(2),
                 }
             }
             const updateQuery = {
@@ -147,6 +147,55 @@ export async function PUT(req,res){
         // updating totalattempt and totalpassages
         await users.updateOne({username:payload.username},{$set:{totalattempt:username.totalattempt+1}});
         await users.updateOne({username:payload.username},{$set:{totalpassages:username.totalpassages+1}});
+
+
+
+        // now adding new user to leaderboard;
+        const inleaderboard=await leaderboard.findOne({
+            [payload.username]:{
+                $exists: true,
+                $not: { $eq: {} }
+            }
+        });
+        // {
+        //     [`usernames.${payload.username}`]: {
+        //       $exists: true,
+        //       $not: { $eq: {} }
+        //     }
+        //   },
+        //   {
+        //     $rename: {
+        //       [`usernames.${payload.username}`]: `usernames.${payload.newusername}`
+        //     }
+        //   }
+        // );
+        if(!inleaderboard){
+            const obj={
+                [payload.username]:{
+                    accuracy:payload.accuracy.toFixed(2),
+                    wpm:Math.floor(payload.wpm),
+                    lastactive:formattedDate
+                }
+            }
+            await leaderboard.insertOne(obj);
+        
+        }
+        else{
+            const obj={
+                accuracy:(inleaderboard[payload.username]==undefined || inleaderboard[payload.username].accuracy<payload.accuracy)?payload.accuracy.toFixed(2):inleaderboard[payload.username].accuracy,
+                wpm:Math.floor((inleaderboard[payload.username]==undefined || inleaderboard[payload.username].wpm<payload.wpm)?payload.wpm:inleaderboard[payload.username].wpm),
+                lastactive:formattedDate
+            }
+            const updateQuery = {
+                $set: { [payload.username]: obj },
+            };
+            await leaderboard.updateOne({[payload.username]:{
+                $exists: true,
+                $not: { $eq: {} }
+            }}, updateQuery, { upsert: true });
+        
+        }
+        // const allRecords = await collection.find({}).toArray();
         return NextResponse.json({message:"Success",status:200});
 
     }
