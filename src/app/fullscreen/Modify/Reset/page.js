@@ -1,7 +1,7 @@
 "use client"
 import React ,{useState,useEffect} from 'react'
 import "../../fullscreen.css"
-import Navbar from '@/app/fullscreen/Navbar/navbar'
+import Navbar from '@/app/fullscreen/Navbar/Navbar'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -29,7 +29,7 @@ const page = () => {
         // Cleanup: remove the event listener
         window.removeEventListener('resize', handleResize);
       };
-    }, []);
+  }, []);
   const general={
     username:"Enter your Username",
     password:"Enter your Password"
@@ -44,7 +44,7 @@ const page = () => {
     setusernotfound(false);
     setwrongNumber(false);
     let url=process.env.NEXT_PUBLIC_BACKEND;
-    const apifetch=`${url}/users/modify`;
+    const apifetch=`${url}/users/resetpassagedata`;
     const data=localStorage.getItem("rapidkeyscredentials");
     const storedData = JSON.parse(data);
     if(storedData.username!==userdetails.username){
@@ -66,7 +66,7 @@ const page = () => {
     console.log(res)
     if(res.status==200){
       localStorage.removeItem("typingmastercredentials");
-      router.push("/fullscreen/login");
+      router.push("/fullscreen/Login");
     }
     else if(res.status==404){
       setusernotfound(true);
@@ -88,7 +88,7 @@ const page = () => {
   return showcontent ?(
     <div  className="userdeletecontainer">
       <Navbar/>
-      {showcontent && <div className="deletecontainer">
+      <div className="deletecontainer">
         <div className="homebutton">
           <Link href="/" className="homebuttonLink">
             <Image
@@ -99,7 +99,7 @@ const page = () => {
             />
           </Link>
         </div>
-        <div className="warning">Deleting this Account will result in loss of all of your Data and Past Performance</div>
+        <div className="warning">Resetting this Account will result in loss of all of your Past Performance ..<br/>You Have to start from Scratch ...</div>
         <div className="deleteparams">
           <input className="deleteusernameparams" type="text" placeholder={userdetails.username} onChange={(e)=>{setuserdetails({...userdetails,username:(e.target.value=="")?general.username:e.target.value})}}/>
           <input className="deletepasswordparams" type="password" placeholder={userdetails.password} onChange={(e)=>{setuserdetails({...userdetails,password:e.target.value==""?general.password:e.target.value})}}/>
@@ -117,12 +117,12 @@ const page = () => {
           Unauthorised access
           {setTimeout(() => {
             localStorage.removeItem("typingmastercredentials");
-            router.push("/fullscreen/login");
+            router.push("/fullscreen/Login");
           }, 1000)}
         </div>
         }
-        <div className="deletebutton" onClick={handleclick}>Delete</div>
-      </div>}
+        <div className="deletebutton" onClick={handleclick}>Reset</div>
+      </div>
     </div>
   ):<div className='cantshowcontent'>This website is under maintainence. <br/>Please view it on your pc</div>
 }

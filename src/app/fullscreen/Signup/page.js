@@ -80,8 +80,8 @@ useEffect(() => {
     else{
       // redirect to login page
       setTimeout(()=>{
-        router.push("/fullscreen/login")
-      },1000)
+        router.push("/fullscreen/Login")
+      },800)
     }
   }
   return showcontent ?(

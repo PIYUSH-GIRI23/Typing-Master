@@ -1,7 +1,7 @@
 "use client"
 import React ,{useState} from 'react'
 import "../../fullscreen.css"
-import Navbar from '@/app/fullscreen/Navbar/navbar'
+import Navbar from '@/app/fullscreen/Navbar/Navbar'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -57,7 +57,7 @@ const page = () => {
     res=await res.json();
     if(res.status==200){
         localStorage.removeItem("typingmastercredentials");
-        router.push("/fullscreen/login");
+        router.push("/fullscreen/Login");
     }
     else if(res.status==404){
       setusernotfound(true);
@@ -113,7 +113,7 @@ const page = () => {
           Unauthorised access
           {setTimeout(() => {
             localStorage.removeItem("typingmastercredentials");
-            router.push("/fullscreen/login");
+            router.push("/fullscreen/Login");
           }, 1000)}
         </div>
         }

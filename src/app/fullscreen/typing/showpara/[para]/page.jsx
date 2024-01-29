@@ -1,6 +1,6 @@
 "use client"
 import React,{useEffect,useState} from 'react'
-import Navbar from '@/app/fullscreen/Navbar/navbar'
+import Navbar from '@/app/fullscreen/Navbar/Navbar'
 import { useRouter } from 'next/navigation'
 const page = ({params}) => {
   const router = useRouter();
@@ -96,7 +96,7 @@ const page = ({params}) => {
         <div className='warning'>
           Passage not found
           {localStorage.removeItem('rapidkeyscredentials')}
-          {router.push('/fullscreen/login')}
+          {router.push('/fullscreen/Login')}
         </div>
       )}
     </div>

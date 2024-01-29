@@ -2,7 +2,7 @@
 import React,{useState,useEffect} from 'react'
 import "../../../fullscreen.css"
 import Link from 'next/link'
-import Navbar from '@/app/fullscreen/Navbar/navbar'
+import Navbar from '@/app/fullscreen/Navbar/Navbar'
 import Linechart from "../../Linechart";
 import { useRouter } from 'next/navigation'
 const page = ({params}) => {
@@ -88,7 +88,7 @@ const [showcontent,setShowcontent]=useState(false);
             Please Login to view your account details
             {setTimeout(() => {
               localStorage.removeItem("rapidkeyscredentials");
-              router.push("/fullscreen/login");
+              router.push("/fullscreen/Login");
             }, 1200)}
           </div>
         }
@@ -96,7 +96,7 @@ const [showcontent,setShowcontent]=useState(false);
             <h1>User Not Found</h1>
             {setTimeout(() => {
               localStorage.removeItem("rapidkeyscredentials");
-              router.push("/fullscreen/login");
+              router.push("/fullscreen/Login");
             }, 1200)}
           </div>
         }
@@ -174,9 +174,9 @@ const [showcontent,setShowcontent]=useState(false);
                 */}
               <div className='fullscreenaccountaccountrightsidebottom'>
                 <div className="fullscreenrightaccountchildbutton" name="maxwpm">
-                  <Link className="fullscreenrightsidetopupdate" name="name" href="/fullscreen/modify/update">Update</Link>
-                  <Link className="fullscreenrightsidetopdelete" name="delete" href="/fullscreen/modify/delete">Delete</Link>
-                  <Link className="fullscreenrightsidetopreset" name="reset" href="/fullscreen/modify/reset">Reset</Link>
+                  <Link className="fullscreenrightsidetopupdate" name="name" href="/fullscreen/modify/Update">Update</Link>
+                  <Link className="fullscreenrightsidetopdelete" name="delete" href="/fullscreen/modify/Delete">Delete</Link>
+                  <Link className="fullscreenrightsidetopreset" name="reset" href="/fullscreen/modify/Reset">Reset</Link>
                   {/* update a/c delete a/c and delete all past activities
                   modal open
                   redirect to login page

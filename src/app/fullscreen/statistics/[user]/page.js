@@ -1,6 +1,6 @@
 "use client"
 import React,{useState,useEffect} from 'react'
-import Navbar from "../../Navbar/navbar";
+import Navbar from "../../Navbar/Navbar";
 import '../../fullscreen.css'
 import Linechart from "../Linechart";
 import { useRouter } from 'next/navigation'
@@ -117,7 +117,7 @@ const page =({params}) => {
         <h1>User Not Found</h1>
         {setTimeout(() => {
           localStorage.removeItem("typingmastercredentials");
-          router.push("/fullscreen/login");
+          router.push("/fullscreen/Login");
         }, 1200)}
       </div>
       }

@@ -4,7 +4,7 @@ import '../fullscreen.css'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-export default function navbar() {
+export default function Navbar() {
   const [showcontent,setShowcontent]=useState(false);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function navbar() {
   const router=useRouter();
   const data=localStorage.getItem("rapidkeyscredentials");
     if(data===null){
-      router.push("/fullscreen/login");
+      router.push("/fullscreen/Login");
     }
     const storedData = JSON.parse(data);
     if(storedData && storedData.logintoken && storedData.username){ 
@@ -45,7 +45,7 @@ export default function navbar() {
   const handleLogout = () => {
     localStorage.removeItem("rapidkeyscredentials");
     setLogin(false);
-    router.push("/fullscreen/login");
+    router.push("/fullscreen/Login");
   }
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   return showcontent ?(
