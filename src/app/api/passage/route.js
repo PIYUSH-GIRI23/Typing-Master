@@ -10,10 +10,10 @@ export async function PUT(req,res){
         const payload=await req.json();
 
         // verify user
-        let response= await Middleware(req,payload.username,users)
-        if(response.status!=200){
-            return NextResponse.json({error:"Invalid Token",status:401});
-        }
+        // let response= await Middleware(req,payload.username,users)
+        // if(response.status!=200){
+        //     return NextResponse.json({error:"Invalid Token",status:401});
+        // }
 
         // finding user thorugh email
         const username=await users.findOne({username:payload.username});

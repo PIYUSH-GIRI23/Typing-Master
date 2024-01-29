@@ -6,6 +6,13 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 export default function navbar() {
   const router=useRouter();
+  const data=localStorage.getItem("rapidkeyscredentials");
+    if(data===null){
+      router.push("/fullscreen/login");
+    }
+    const storedData = JSON.parse(data);
+    if(storedData && storedData.logintoken && storedData.username){ 
+    }
   const [islogin, setLogin] = useState(localStorage.getItem("rapidkeyscredentials") && false);
   const [loginusername,setLoginUsername] = useState("");
   useEffect(()=>{

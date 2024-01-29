@@ -14,12 +14,13 @@ export async function GET() {
       const userB = Object.keys(b)[0];
 
       // Compare accuracy (descending order)
+      const wpmDiff = b[userB].wpm - a[userA].wpm;
+      if (wpmDiff !== 0) return wpmDiff;
+
+      // Compare wpm (descending order)
       const accuracyDiff = parseFloat(b[userB].accuracy) - parseFloat(a[userA].accuracy);
       if (accuracyDiff !== 0) return accuracyDiff;
 
-      // Compare wpm (descending order)
-      const wpmDiff = b[userB].wpm - a[userA].wpm;
-      if (wpmDiff !== 0) return wpmDiff;
 
       // Compare lastactive (descending order)
       const lastActiveDiff = b[userB].lastactive - a[userA].lastactive;

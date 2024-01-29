@@ -1123,7 +1123,7 @@
         margin-top:1vh;
         text-decoration: none;
         color:rgba(245, 245, 220, 1);
-        font-size:29px;
+        font-size:25px;
         font-weight: 600;
         background-color: brown;
     }
@@ -1562,3 +1562,82 @@
     background-color: #555; 
   }
     
+  .fullscreentestmodal{
+    border:3px solid grey;
+    /* background-color: rgba(0, 0, 0, 1); */
+    height:40vh;
+    width:50vw;
+    margin-left:25vw;
+    margin-top:25vh;
+    position:fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius:16px;
+    box-shadow: 5px 15px 10px 2px #888888
+  }
+
+  .fullscreentestmodal2{
+    display: none;
+  }
+
+  .fullscreenspecificpassage2{
+    display: none;
+  }
+
+  .fullscreencrossbutton{
+    display:flex;
+    justify-content: flex-end;
+    /* border:1px solid red; */
+    font-size:60px;
+    color:white;
+    font-weight: 600;
+    position:absolute;
+    top:0px;
+    right:7px;
+  }
+
+  .fullscreencrossbutton:hover{
+    cursor:pointer
+  }
+
+  .fullscreentesttimings{
+    position:absolute;
+  }
+
+  .fullscreentaketestbutton{
+    border:1px solid rgba(245, 245, 220, 1);
+    height:6vh;
+    width:20vw;
+    margin-top:1vh;
+    border-radius: 12px;
+    /* margin-left:1vw; */
+    display: flex;
+    /* flex-direction: column; */
+    /* margin-bottom:-200px; */
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color:rgba(255, 255, 224, 1);
+    font-size:30px;
+    font-weight: 600;
+    background-color: rgba(0, 128, 0, 0.5);
+    transition: all 0.3s ease;
+    position:absolute;
+    top:31vh;
+    right:15vw;
+  }
+
+  .fullscreenpassagemodaltime{
+    position:absolute;
+    top:24vh;
+  }
+  .fullscreentaketestbutton:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+
+  .fullscreenmodalinputtime{
+    position:absolute;
+    top:-50px
+  }

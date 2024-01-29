@@ -8,13 +8,18 @@ export default function homepagecomponent() {
   const router=useRouter();
   const [symbols,setSymbols]=useState(false);
   const [numbers,setNumbers]=useState(false);
+  const [islogin,setIslogin]=useState(false);
+  const [specificuser,setSpecificuser]=useState({
+    rank:'Not Applicable',
+    netTypingSpeed:'Not Applicable'
+  });
   let [contestTime,setcontestTime]=useState({
     min:'00',
     sec:'30'
-  });
+  }); 
   const [correcttime,setcorrecttime]=useState(false)
   const [userdetails,setuserdetails]=useState({});
-  const getrandomid=async()=>{
+  const getrandomid=async(min,sec)=>{
     const url=process.env.NEXT_PUBLIC_BACKEND;
     const api=url+'/typingpassage';
     const payload={
@@ -29,7 +34,7 @@ export default function homepagecomponent() {
       body:JSON.stringify(payload)
     });
     response=await response.json();
-    router.push(`/fullscreen/typing/${response.details}`);
+    router.push(`/fullscreen/typing/${response.details}/${parseInt(min)+parseInt(sec)}`);
   }
   const handlestart=()=>{
     setcorrecttime(false);
@@ -45,7 +50,7 @@ export default function homepagecomponent() {
     const arr=[parseInt(min[0]),parseInt(min[1]),parseInt(sec[0]),parseInt(sec[1])]
     console.log(arr)
     if((arr[0]==0 && arr[1]==0 && arr[2]==0 && arr[3]==0) || isNaN(arr[0]) || isNaN(arr[1]) || isNaN(arr[2]) || isNaN(arr[3])){
-      setcontestTime(true);
+      setcorrecttime(true);
       // console.log("no")
     }
     const timemin=parseInt(arr[0]*10*60+arr[1]*60);
@@ -57,7 +62,7 @@ export default function homepagecomponent() {
     else{
       // console.log(timemin+timesec,numbers,symbols);
       // console.log("yes")
-      getrandomid();
+      getrandomid(min,sec);
 
 
     }
@@ -72,12 +77,37 @@ export default function homepagecomponent() {
     if(response.status==200){
       setuserdetails(response.details);
       console.log(response.details)
+      let storedname=localStorage.getItem('rapidkeyscredentials');
+      let data,username;
+      if(storedname){
+        data=JSON.parse(storedname);
+        username=data.username;
+        setIslogin(true);
+      }
+      const foundUser = response.details.find((user) => Object.keys(user)[0] === username);
+      if (foundUser) {
+        const rank = (response.details.indexOf(foundUser) + 1).toString();
+        const netTypingSpeed = (Math.floor((foundUser[username].accuracy * foundUser[username].wpm)/100)).toString();
+
+        setSpecificuser({
+          rank: rank,
+          netTypingSpeed: netTypingSpeed + ' Wpm',
+        });
+      } else {
+        // User not found, set default values
+        setSpecificuser({
+          rank: 'Not Applicable',
+          netTypingSpeed: 'Not Applicable',
+        });
+      }
     }
   }
   useEffect(()=>{
     apifetch();
   },[])
   return(
+    <div>
+    { islogin &&
     <div className="fullscreenhomepage">
       <div className='fullscreenhomepageleft'>
         <Link href='https://github.com/PIYUSH-GIRI23'>
@@ -119,8 +149,8 @@ export default function homepagecomponent() {
       </div>
       <div className='fullscreenhomepagecenter'>
         <div className='fullscreenhomepagecentertop'>
-          <div className='fullscreenhomepagecentertopchild'>Rank : 2</div>
-          <div className='fullscreenhomepagecentertopchild'>Net Typing Speed : 110</div>
+          <div className='fullscreenhomepagecentertopchild'>Rank : {specificuser.rank}</div>
+          <div className='fullscreenhomepagecentertopchild'>Net Typing Speed : {specificuser.netTypingSpeed}</div>
         </div>
         <div className='fullscreenhomepagecenterbottom'>
           <Image
@@ -189,6 +219,7 @@ export default function homepagecomponent() {
           }
         </div>
       </div>
+    </div>}
     </div>
   )
 }

@@ -6,8 +6,14 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 const page = ({params}) => {
   const router=useRouter();
+  let [contestTime,setcontestTime]=useState({
+    min:'00',
+    sec:'30'
+  }); 
   const  [passageDetails,setpassageDetails]=useState({});
-  const [passagenotfound,setpassagenotfound]=useState(false);
+  const [passagenotfound,setpassagenotfound]=useState(!false);
+  const [correcttime,setcorrecttime]=useState(false)
+  const [modal,setmodal]=useState(false);
   let url=process.env.NEXT_PUBLIC_BACKEND;
   const apifetch=`${url}/view/passagedetails/${params.passage}`
   async function getpassagedetails(){
@@ -15,25 +21,75 @@ const page = ({params}) => {
     res=await res.json();
     // console.log(res)
     if(res.status===200){
-      setpassagenotfound(false);
+      setpassagenotfound(!false);
       let {details,extra}=res;
       setpassageDetails(details);
       console.log(details)
       // console.log(details[winner])
     }
     else{
-      setpassagenotfound(true);
+      setpassagenotfound(!true);
       return;
     }
   }
   useEffect(()=>{
     getpassagedetails();
   },[params.passage]) 
+  const taketestbutton=()=>{
+    setcorrecttime(false);
+    let min=contestTime.min;
+    let sec=contestTime.sec;
+    if(min.length==1){
+      min='0'+min;
+    }
+    if(sec.length==1){
+      sec='0'+sec;
+    }
+    console.log(min,sec)
+    const arr=[parseInt(min[0]),parseInt(min[1]),parseInt(sec[0]),parseInt(sec[1])]
+    console.log(arr)
+    if((arr[0]==0 && arr[1]==0 && arr[2]==0 && arr[3]==0) || isNaN(arr[0]) || isNaN(arr[1]) || isNaN(arr[2]) || isNaN(arr[3])){
+      setcorrecttime(true);
+      // console.log("no")
+    }
+    const timemin=parseInt(arr[0]*10*60+arr[1]*60);
+    const timesec=parseInt(arr[2]*10+arr[3]);
+    if(timemin>59*60 || timesec>59){
+      // console.log("no")
+      setcorrecttime(true)
+    }
+    else{
+      // console.log(timemin+timesec,numbers,symbols);
+      // console.log("yes")
+      router.push(`/fullscreen/typing/${params.passage}/${timemin+timesec}`);
+    }
+  }
   return (
     <div>
       <Navbar/>
+      <div className={modal?"fullscreentestmodal":"fullscreentestmodal2"}>
+        <div className="fullscreencrossbutton" onClick={()=>setmodal(!modal)}>&times;</div>
+        <div className="fullscreentesttimings">
+          <div className='fullscreenhomepagecenterbottomcontestboxtime fullscreenmodalinputtime'>
+            <input id='mininput' className='fullscreenhomepagecenterbottomcontestboxinputhr' value={contestTime.min} maxLength={2}  onChange={(e)=>setcontestTime({...contestTime,min:e.target.value})}/>
+            <div className='fullscreenhomepagecenterbottomcontestboxinputcolon'>:</div>
+            <input id='secinput' className='fullscreenhomepagecenterbottomcontestboxinputmin' value={contestTime.sec} maxLength={2} onChange={(e)=>setcontestTime({...contestTime,sec:e.target.value})}/>
+          </div>
+          <div className='fullscreenhomepagecenterbottomcontestboxtimedefault fullscreenmodaldefaulttime'>
+            <div className='fullscreenhomepagecenterbottomcontestboxtimedefaultchild' onClick={(e)=>setcontestTime({...contestTime,min:'01',sec:'00'})}>1 min</div>
+            <div className='fullscreenhomepagecenterbottomcontestboxtimedefaultchild' onClick={(e)=>setcontestTime({...contestTime,min:'02',sec:'00'})}>2 min</div>
+            <div className='fullscreenhomepagecenterbottomcontestboxtimedefaultchild' onClick={(e)=>setcontestTime({...contestTime,min:'05',sec:'00'})}>5 min</div>
+            <div className='fullscreenhomepagecenterbottomcontestboxtimedefaultchild' onClick={(e)=>setcontestTime({...contestTime,min:'10',sec:'00'})}>10 min</div>
+          </div>
+        </div>
+        {
+          correcttime && 
+          <div className='warning fullscreenpassagemodaltime'>Please enter correct time</div>
+        }
+        <div className="fullscreentaketestbutton" onClick={taketestbutton}>Take Test</div>
+      </div>
       {localStorage.getItem("rapidkeyscredentials") && passagenotfound &&
-      <div className='fullscreenspecificpassage'>
+      <div className={!modal?"fullscreenspecificpassage":"fullscreenspecificpassage2"}>
         <div className="fullscreenspecificpassageleftside">
           <div className="fullscreenspecificpassageleftsidetop">
             <div className='fullscreenspecificpassageleftsidetopheader'>
@@ -48,7 +104,8 @@ const page = ({params}) => {
           </div>
           <div className="fullscreenspecificpassageleftsidebottom">
             <Link className='fullscreenspecificpassageleftsidebottomebutton' href={`/fullscreen/typing/showpara/${params.passage}`}>View Passage</Link>
-            <Link className='fullscreenspecificpassageleftsidebottomebutton' href={`/fullscreen/typing/${params.passage}`}>Take Test</Link>
+            {/* <Link className='fullscreenspecificpassageleftsidebottomebutton' href={`/fullscreen/typing/${params.passage}`}>Take Test</Link> */}
+            <div className='fullscreenspecificpassageleftsidebottomebutton' onClick={()=>setmodal(!modal)}>Take Test</div>
           </div>
         </div>
         <div className="fullscreenspecificpassagerightside">

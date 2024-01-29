@@ -96,7 +96,7 @@ const page = () => {
         <div className="fullscreenredirect">
             Didn't have an account <Link href="/fullscreen/signup" className="fullscreenredirectButton">Signup Here</Link>
         </div>
-        <div className="fullscreenredirectHome">
+        {/* <div className="fullscreenredirectHome">
             <Link href="/" className='fullscreenredirectHomeButton'>
                 <Image
                     src='/home.png'
@@ -106,7 +106,7 @@ const page = () => {
                     alt="home button here"
                 />
             </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   )
