@@ -5,7 +5,7 @@ import '../../fullscreen.css'
 import Linechart from "../Linechart";
 import { useRouter } from 'next/navigation'
 import Link from 'next/link';
-const page =({params}) => {
+const Page =({params}) => {
   const router=useRouter();
   const [showcontent,setShowcontent]=useState(false);
   useEffect(() => {
@@ -126,4 +126,4 @@ const page =({params}) => {
 
 }
 
-export default page
+export default Page

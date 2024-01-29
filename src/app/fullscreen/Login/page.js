@@ -4,7 +4,7 @@ import '../fullscreen.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-const page = () => {
+const Page = () => {
   const router = useRouter()
   const [showcontent,setShowcontent]=useState(false);
 
@@ -64,7 +64,7 @@ const page = () => {
       localStorage.setItem("rapidkeyscredentials", JSON.stringify(userData));
       // const storedData = JSON.parse(userData); --> use this to get items
 
-      // redirect to home page
+      // redirect to home Page
       router.push("/");
 
     }
@@ -131,4 +131,4 @@ const page = () => {
   ):<div className='cantshowcontent'>This website is under maintainence. <br/>Please view it on your PC</div>
 }
 
-export default page
+export default Page

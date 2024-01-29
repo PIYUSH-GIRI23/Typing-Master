@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Navbar from '@/app/fullscreen/Navbar/Navbar'
 import Linechart from "../../Linechart";
 import { useRouter } from 'next/navigation'
-const page = ({params}) => {
+const Page = ({params}) => {
   const router=useRouter();
 
 const [showcontent,setShowcontent]=useState(false);
@@ -170,7 +170,7 @@ const [showcontent,setShowcontent]=useState(false);
                   </div>
                 </div>{/* update a/c delete a/c and delete all past activities
                   modal open
-                  redirect to login page
+                  redirect to login Page
                 */}
               <div className='fullscreenaccountaccountrightsidebottom'>
                 <div className="fullscreenrightaccountchildbutton" name="maxwpm">
@@ -179,7 +179,7 @@ const [showcontent,setShowcontent]=useState(false);
                   <Link className="fullscreenrightsidetopreset" name="reset" href="/fullscreen/modify/Reset">Reset</Link>
                   {/* update a/c delete a/c and delete all past activities
                   modal open
-                  redirect to login page
+                  redirect to login Page
                   */}
                   </div>
               </div>
@@ -190,4 +190,4 @@ const [showcontent,setShowcontent]=useState(false);
 
 }
 
-export default page
+export default Page

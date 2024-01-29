@@ -4,7 +4,7 @@ import React from 'react'
 import { useState,useEffect } from 'react'
 import '../../fullscreen.css'
 
-const page = ({params}) => {
+const Page = ({params}) => {
   const router=useRouter();
   // console.log({params})
   // console.log("wordls")
@@ -36,4 +36,4 @@ const page = ({params}) => {
   ):<div className='cantshowcontent'>This website is under maintainence. <br/>Please view it on your pc</div>
 }
 
-export default page
+export default Page

@@ -5,7 +5,7 @@ import Navbar from '@/app/fullscreen/Navbar/Navbar'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-const page = () => {
+const Page = () => {
   const [passwordmach,setpasswordmach]=useState(false);
   const [serverError,setserverError]=useState(false);
   const [usernotfound,setusernotfound]=useState(false);
@@ -123,4 +123,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

@@ -2,7 +2,7 @@
 import React,{useEffect,useState} from 'react'
 import Navbar from '@/app/fullscreen/Navbar/Navbar'
 import { useRouter } from 'next/navigation'
-const page = ({params}) => {
+const Page = ({params}) => {
   const router = useRouter();
   const [showcontent,setShowcontent]=useState(false);
 
@@ -103,4 +103,4 @@ const page = ({params}) => {
   ):<div className='cantshowcontent'>This website is under maintainence. <br/>Please view it on your pc</div>
 }
 
-export default page
+export default Page

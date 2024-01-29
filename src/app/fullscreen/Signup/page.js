@@ -4,7 +4,7 @@ import '../fullscreen.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-const page = () => {
+const Page = () => {
   const router = useRouter()
   const [showcontent,setShowcontent]=useState(false);
 
@@ -78,7 +78,7 @@ useEffect(() => {
       setServerError(true)
     }
     else{
-      // redirect to login page
+      // redirect to login Page
       setTimeout(()=>{
         router.push("/fullscreen/Login")
       },800)
@@ -144,4 +144,4 @@ useEffect(() => {
   ):<div className='cantshowcontent'>This website is under maintainence. <br/>Please view it on your pc</div>
 }
 
-export default page
+export default Page
