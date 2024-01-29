@@ -7,6 +7,26 @@ import Linechart from "../../Linechart";
 import { useRouter } from 'next/navigation'
 const page = ({params}) => {
   const router=useRouter();
+
+const [showcontent,setShowcontent]=useState(false);
+
+  useEffect(() => {
+      const handleResize = () => {
+        const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+        setShowcontent(viewportWidth > 1000);
+      };
+
+      // Initial check on mount
+      handleResize();
+
+      // Event listener for window resize
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        // Cleanup: remove the event listener
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
   const [isnotlogin,setisnotlogin]=useState(false);
   const [usernotfound,setUsernotfound]=useState(false);
 
@@ -60,7 +80,7 @@ const page = ({params}) => {
   const handledelete=()=>{
     console.log("clicked")
   }
-  return (
+  return showcontent ?(
     <div className="fullscreenaccount">
         <Navbar/>
           {isnotlogin && 
@@ -166,7 +186,8 @@ const page = ({params}) => {
             </div>
         </div>}
     </div>
-  )
+  ):<div className='cantshowcontent'>This website is under maintainence. <br/>Please view it on your pc</div>
+
 }
 
 export default page

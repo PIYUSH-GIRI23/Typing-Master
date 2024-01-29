@@ -5,6 +5,24 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {useRouter} from 'next/navigation';
 export default function homepagecomponent() {
+  const [showcontent,setShowcontent]=useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+      setShowcontent(viewportWidth > 1000);
+    };
+
+    // Initial check on mount
+    handleResize();
+
+    // Event listener for window resize
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      // Cleanup: remove the event listener
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   const router=useRouter();
   const [symbols,setSymbols]=useState(false);
   const [numbers,setNumbers]=useState(false);
@@ -105,7 +123,7 @@ export default function homepagecomponent() {
   useEffect(()=>{
     apifetch();
   },[])
-  return(
+  return showcontent ? (
     <div>
     { islogin &&
     <div className="fullscreenhomepage">
@@ -221,5 +239,5 @@ export default function homepagecomponent() {
       </div>
     </div>}
     </div>
-  )
+  ):<div className='cantshowcontent'>This website is under maintainence. <br/>Please view it on your PC</div>
 }

@@ -1,11 +1,30 @@
 "use client"
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import '../fullscreen.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 const page = () => {
   const router = useRouter()
+  const [showcontent,setShowcontent]=useState(false);
+
+  useEffect(() => {
+      const handleResize = () => {
+        const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+        setShowcontent(viewportWidth > 1100);
+      };
+
+      // Initial check on mount
+      handleResize();
+
+      // Event listener for window resize
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        // Cleanup: remove the event listener
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
   const [wrongPassword,setWrongPassword] = useState(false)
   const [serverError,setServerError] = useState(false)
   const [usernotfound,setUsernotfound] = useState(false)
@@ -60,7 +79,7 @@ const page = () => {
     }
   }
 
-  return (
+  return showcontent ?(
     <div className="fullscreenLogin">
       <div className="fullscreenImageContainer">
         <Image 
@@ -109,7 +128,7 @@ const page = () => {
         </div> */}
       </div>
     </div>
-  )
+  ):<div className='cantshowcontent'>This website is under maintainence. <br/>Please view it on your PC</div>
 }
 
 export default page

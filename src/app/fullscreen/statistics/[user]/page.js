@@ -7,6 +7,24 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link';
 const page =({params}) => {
   const router=useRouter();
+  const [showcontent,setShowcontent]=useState(false);
+  useEffect(() => {
+      const handleResize = () => {
+        const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+        setShowcontent(viewportWidth > 1000);
+      };
+
+      // Initial check on mount
+      handleResize();
+
+      // Event listener for window resize
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        // Cleanup: remove the event listener
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
   const  [userdetails,setUserdetails]=useState({});
   const [usernotfound,setUsernotfound]=useState(false);
   const [chartData, setChartData] = useState([]);
@@ -48,7 +66,7 @@ const page =({params}) => {
     // console.log(chartData)
   }, [userdetails.datewise]);
 
-  return (
+  return  showcontent ?(
     <div className="fullscreenStatistics">
       <Navbar/>
       { localStorage.getItem("rapidkeyscredentials") && !usernotfound && <div className="fullscreenuserdetails">
@@ -104,7 +122,8 @@ const page =({params}) => {
       </div>
       }
       </div>
-  )
+  ):<div className='cantshowcontent'>This website is under maintainence. <br/>Please view it on your pc</div>
+
 }
 
 export default page

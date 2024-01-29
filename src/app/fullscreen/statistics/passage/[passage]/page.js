@@ -6,6 +6,25 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 const page = ({params}) => {
   const router=useRouter();
+  const [showcontent,setShowcontent]=useState(false);
+
+  useEffect(() => {
+      const handleResize = () => {
+        const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+        setShowcontent(viewportWidth > 1000);
+      };
+
+      // Initial check on mount
+      handleResize();
+
+      // Event listener for window resize
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        // Cleanup: remove the event listener
+        window.removeEventListener('resize', handleResize);
+      };
+  }, []);
   let [contestTime,setcontestTime]=useState({
     min:'00',
     sec:'30'
@@ -64,7 +83,7 @@ const page = ({params}) => {
       router.push(`/fullscreen/typing/${params.passage}/${timemin+timesec}`);
     }
   }
-  return (
+  return showcontent ?(
     <div>
       <Navbar/>
       <div className={modal?"fullscreentestmodal":"fullscreentestmodal2"}>
@@ -161,7 +180,7 @@ const page = ({params}) => {
         </div>
       }
     </div>
-  )
+  ):<div className='cantshowcontent'>This website is under maintainence. <br/>Please view it on your pc</div>
 }
 
 export default page
