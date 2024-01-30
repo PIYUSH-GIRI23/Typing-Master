@@ -8,7 +8,7 @@
     1) MONGO_URI=mongodb://localhost:27017<br/>
     2) NEXT_PUBLIC_BACKEND=http://localhost:3000/api<br/>
     3) MONGO_ATLAS_PASSWORD=<optional (used for mongodbatlas)><br/>
-    4) MONGO_ATLAS_ID=<optional (used for mongodbatlas)>
+    4) MONGO_ATLAS_ID=<optional (used for mongodbatlas)><br/>
     5) SECRET_KEY=mysecretkey<br/>
 
 
