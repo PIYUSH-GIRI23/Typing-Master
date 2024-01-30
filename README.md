@@ -15,7 +15,11 @@
 ### See the output on localhost:3000
 
 
+### your src directory will look like this
+![image](https://github.com/PIYUSH-GIRI23/Typing-Master/assets/130428916/c23157c8-f756-4e05-b110-f3962f18941e)
+
 ![Screenshot from 2024-01-30 21-13-11](https://github.com/PIYUSH-GIRI23/Typing-Master/assets/130428916/a708ebd3-86e9-4c53-b12f-a04fbad76bfb)
 ![Screenshot from 2024-01-30 21-12-57](https://github.com/PIYUSH-GIRI23/Typing-Master/assets/130428916/3aa3d490-6c2b-4d2f-be98-5f99064db4f7)
 ![Screenshot from 2024-01-30 21-11-52](https://github.com/PIYUSH-GIRI23/Typing-Master/assets/130428916/4fcf3604-ee5d-4df6-8e90-9aa178caada6)
 ![Screenshot from 2024-01-30 21-12-49](https://github.com/PIYUSH-GIRI23/Typing-Master/assets/130428916/4593d7f6-51a2-431c-8b9d-e5c733a4a0fb)
+
