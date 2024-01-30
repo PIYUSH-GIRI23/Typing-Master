@@ -1,36 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## How to get started
 
-## Getting Started
+-> Clone the github repo by forking this repo and run this cmd (git clone <b>repo name</b>)<br/>
+-> in the terminal locate the folder "TypingMaster" , run the command <i><b>npm i</b></i> to install all node dependencies<br/>
+-> Install Mongo db compass or use mongo db atlas<br/>
+-> in /src directory , create a file <b>.env.local</b><br/> 
+-> in <b>.env.local</b> , create these variables<br/><br/>
+    1) MONGO_URI=mongodb://localhost:27017<br/>
+    2) NEXT_PUBLIC_BACKEND=http://localhost:3000/api<br/>
+    3) MONGO_ATLAS_PASSWORD=<optional (used for mongodbatlas)><br/>
+    4) MONGO_ATLAS_ID=<optional (used for mongodbatlas)>
+    5) SECRET_KEY=mysecretkey<br/>
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### See the output on localhost:3000
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![Screenshot from 2024-01-30 21-13-11](https://github.com/PIYUSH-GIRI23/Typing-Master/assets/130428916/a708ebd3-86e9-4c53-b12f-a04fbad76bfb)
+![Screenshot from 2024-01-30 21-12-57](https://github.com/PIYUSH-GIRI23/Typing-Master/assets/130428916/3aa3d490-6c2b-4d2f-be98-5f99064db4f7)
+![Screenshot from 2024-01-30 21-11-52](https://github.com/PIYUSH-GIRI23/Typing-Master/assets/130428916/4fcf3604-ee5d-4df6-8e90-9aa178caada6)
+![Screenshot from 2024-01-30 21-12-49](https://github.com/PIYUSH-GIRI23/Typing-Master/assets/130428916/4593d7f6-51a2-431c-8b9d-e5c733a4a0fb)
