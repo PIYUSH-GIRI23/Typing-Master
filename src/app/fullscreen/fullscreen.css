@@ -1695,3 +1695,82 @@
     align-items: center;
     text-align: center;
 }
+
+.mainparacontainer{
+    /* border:2px solid grey; */
+    height:96vh;
+    width:96vw;
+    margin-left:2vw;
+    margin-top:2vh;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+
+}
+
+.mainparanavbar{
+    /* border:1px solid grey; */
+    width:94vw;
+    height:10vh ;
+    display:flex;
+    justify-content: space-between;
+}
+
+.fullscreenredirectHomeImagelogomainpara{
+    margin-top: -10px;
+    margin-left: 10px;
+}
+
+.closebutton{
+    border:1px solid grey;
+    width:9vw;
+    height:7vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+    color:snow;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    background-color: red;
+}
+
+.closebutton:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.mainbody {
+    /* border: 1px solid grey; */
+    color: white;
+    width: 80vw;
+    height: 40vh;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: flex-start; /* Adjust alignment based on your preference */
+    align-items: center;
+    overflow-y: hidden; /* Allow vertical scrolling */
+    position: absolute;
+    bottom: 14vw;
+    font-size: 27px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left:10px;
+    padding-right:10px;
+    line-height: 40px;
+  }
+
+  .mainbodyactive{
+    color:green;
+  }
+  .mainbodywrong{
+    color:red;
+  }
+  .highlight {
+    text-decoration: underline;
+    color: yellow;
+  }
+  
+  
