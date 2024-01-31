@@ -83,10 +83,10 @@ const Page = ({ params }) => {
     // console.log(time);
     if (time==0) totalwpm=0;
     else if(time<60 && time>0 ){
-      totalwpm=wordcounter*(Math.ceil(60/parseInt(time)))
+      totalwpm=Math.ceil(wordcounter*(60/parseInt(time)))
     }
     else if(time>=60 && time>0){
-      totalwpm=wordcounter/(Math.ceil(parseInt(time)/60))
+      totalwpm=Math.ceil(wordcounter/((parseInt(time)/60)))
       // console.log(time,totalwpm,Math.ceil(parseInt(time)/60))
     }
     let netaccuracy;

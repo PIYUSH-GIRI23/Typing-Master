@@ -103,10 +103,10 @@ const Page = ({params}) => {
         }
         let totalwpm;
         if(time<60 && time>0 ){
-            totalwpm=localStorage.getItem('wordcounter')*(Math.ceil(60/parseInt(time)))
+            totalwpm=Math.ceil(localStorage.getItem('wordcounter')*((60/parseInt(time))))
         }
         else if(time>=60 && time>0){
-            totalwpm=Math.floor(localStorage.getItem('wordcounter')/(Math.ceil(parseInt(time)/60)))
+            totalwpm=Math.ceil(localStorage.getItem('wordcounter')/((parseInt(time)/60)))
             // console.log(time,totalwpm,Math.ceil(parseInt(time)/60))
         }
         console.log(totalwpm)
