@@ -80,7 +80,7 @@ const Page = ({params}) => {
     else{
       // console.log(timemin+timesec,numbers,symbols);
       // console.log("yes")
-      router.push(`/fullscreen/typing/${params.passage}/${timemin+timesec}`);
+      router.push(`/fullscreen/typing/${params.passage}/${(timemin) +timesec}`);
     }
   }
   return showcontent ?(

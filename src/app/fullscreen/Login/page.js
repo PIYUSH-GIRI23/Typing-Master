@@ -113,7 +113,7 @@ const Page = () => {
       <div className="fullscreenSubmitButton" onClick={handleSubmit}>Submit</div>
       <div className="fullscreenAdditionals">
         <div className="fullscreenredirect">
-            Didn't have an account <Link href="/fullscreen/signup" className="fullscreenredirectButton">Signup Here</Link>
+            Didn't have an account <Link href="/fullscreen/Signup" className="fullscreenredirectButton">Signup Here</Link>
         </div>
         {/* <div className="fullscreenredirectHome">
             <Link href="/" className='fullscreenredirectHomeButton'>

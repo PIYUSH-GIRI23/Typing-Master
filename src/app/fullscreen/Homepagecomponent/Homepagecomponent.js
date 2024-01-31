@@ -52,7 +52,7 @@ export default function Homepagecomponent() {
       body:JSON.stringify(payload)
     });
     response=await response.json();
-    router.push(`/fullscreen/typing/${response.details}/${parseInt(min)+parseInt(sec)}`);
+    router.push(`/fullscreen/typing/${response.details}/${parseInt(min*60)+parseInt(sec)}`);
   }
   const handlestart=()=>{
     setcorrecttime(false);

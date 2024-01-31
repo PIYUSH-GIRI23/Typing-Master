@@ -10,10 +10,10 @@ export async function PUT(req,res){
         const payload=await req.json();
 
         // verify user
-        // let response= await Middleware(req,payload.username,users)
-        // if(response.status!=200){
-        //     return NextResponse.json({error:"Invalid Token",status:401});
-        // }
+        let response= await Middleware(req,payload.username,users)
+        if(response.status!=200){
+            return NextResponse.json({error:"Invalid Token",status:401});
+        }
 
         // finding user thorugh email
         const username=await users.findOne({username:payload.username});
@@ -38,7 +38,8 @@ export async function PUT(req,res){
                     name:"",
                     username:"",
                     maxwpm:0,
-                    maxaccuracy:0
+                    maxaccuracy:0,
+                    totalattempt:0
                 }
             }
             // inserting new record
@@ -49,6 +50,8 @@ export async function PUT(req,res){
         passageExists=await passage.findOne({passageid:payload.passageid});
 
         // creating obj for updating the record
+        const currentDate = new Date();
+        const formattedDate = currentDate.getDate()
         const obj={
             attempts:passageExists.attempts+1,
             avgaccuracy:(((passageExists.avgaccuracy*passageExists.attempts)+payload.accuracy)/(passageExists.attempts+1)).toFixed(2),
@@ -64,7 +67,9 @@ export async function PUT(req,res){
                 [payload.username]:{
                     name:username.name,
                     maxaccuracy:(passageExists.usernames[payload.username]==undefined || passageExists.usernames[payload.username].maxaccuracy<payload.accuracy)?(payload.accuracy.toFixed(2)):passageExists.usernames[payload.username].maxaccuracy,
-                    maxwpm:Math.floor((passageExists.usernames[payload.username]==undefined || passageExists.usernames[payload.username].maxwpm<payload.wpm)?payload.wpm:passageExists.usernames[payload.username].maxwpm)
+                    maxwpm:Math.floor((passageExists.usernames[payload.username]==undefined || passageExists.usernames[payload.username].maxwpm<payload.wpm)?payload.wpm:passageExists.usernames[payload.username].maxwpm),
+                    lastactive:formattedDate,
+                    totalattempt:(passageExists.usernames[payload.username]==undefined)?1:passageExists.usernames[payload.username].totalattempt+1
                 }
             }
         }
@@ -106,8 +111,6 @@ export async function PUT(req,res){
             
             await users.updateOne({username:payload.username}, updateQuery, { upsert: true });
         }
-        const currentDate = new Date();
-        const formattedDate = currentDate.getDate()
         if(username.datewise[formattedDate]==undefined){
             const datewise={
                 ...username.datewise,

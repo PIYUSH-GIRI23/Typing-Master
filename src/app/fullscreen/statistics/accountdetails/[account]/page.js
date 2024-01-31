@@ -174,9 +174,9 @@ const [showcontent,setShowcontent]=useState(false);
                 */}
               <div className='fullscreenaccountaccountrightsidebottom'>
                 <div className="fullscreenrightaccountchildbutton" name="maxwpm">
-                  <Link className="fullscreenrightsidetopupdate" name="name" href="/fullscreen/modify/Update">Update</Link>
-                  <Link className="fullscreenrightsidetopdelete" name="delete" href="/fullscreen/modify/Delete">Delete</Link>
-                  <Link className="fullscreenrightsidetopreset" name="reset" href="/fullscreen/modify/Reset">Reset</Link>
+                  <Link className="fullscreenrightsidetopupdate" name="name" href="/fullscreen/Modify/Update">Update</Link>
+                  <Link className="fullscreenrightsidetopdelete" name="delete" href="/fullscreen/Modify/Delete">Delete</Link>
+                  <Link className="fullscreenrightsidetopreset" name="reset" href="/fullscreen/Modify/Reset">Reset</Link>
                   {/* update a/c delete a/c and delete all past activities
                   modal open
                   redirect to login Page

@@ -64,7 +64,7 @@ export default function Navbar() {
         </div>
     {!islogin &&
       <div className="fullscreenLoginNo">
-        <Link href="/fullscreen/signup" className="fullscreenSignupbutton">Signup</Link>
+        <Link href="/fullscreen/Signup" className="fullscreenSignupbutton">Signup</Link>
         <Link href="/fullscreen/login" className="fullscreenLoginbutton">Login</Link>
       </div>
     }
