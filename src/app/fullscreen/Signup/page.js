@@ -126,7 +126,7 @@ useEffect(() => {
       <div className="fullscreenSubmitButton" onClick={handleSubmit}>Submit</div>
       <div className="fullscreenAdditionals">
         <div className="fullscreenredirect">
-            Already have an account <Link href="/fullscreen/login" className="fullscreenredirectButton">Login Here</Link>
+            Already have an account <Link href="/fullscreen/Login" className="fullscreenredirectButton">Login Here</Link>
         </div>
         {/* <div className="fullscreenredirectHome">
             <Link href="/" className='fullscreenredirectHomeButton'>
