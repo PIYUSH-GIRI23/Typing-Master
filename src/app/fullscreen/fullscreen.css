@@ -1749,9 +1749,10 @@
     height: 40vh;
     /* display: flex; */
     /* flex-direction: column; */
-    justify-content: flex-start; /* Adjust alignment based on your preference */
-    align-items: center;
-    overflow-y: hidden; 
+    justify-content: flex-start;
+    /* align-items: center; */
+    /* overflow-y: auto; 
+    overflow-x: hidden; */
     position: absolute;
     bottom: 10vw;
     font-size: 27px;
@@ -1760,6 +1761,7 @@
     padding-left:10px;
     padding-right:10px;
     line-height: 40px;
+    word-wrap: break-word;
   }
 
   .mainbodyactive{
