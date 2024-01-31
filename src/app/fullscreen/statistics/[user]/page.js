@@ -92,7 +92,7 @@ const Page =({params}) => {
             </div>
             <hr className="hr2"/>
             <div className="fullscreenrightdetailschild" name="maxaccuracy">
-              Max Accuracy : {userdetails.maxaccuracy}
+              Max Accuracy : {(userdetails.maxaccuracy)}%
             </div>
           </div>
         </div>

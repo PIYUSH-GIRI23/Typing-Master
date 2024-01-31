@@ -132,7 +132,7 @@ const [showcontent,setShowcontent]=useState(false);
                 </div>
                 <hr className="hr2"/>
                 <div className="fullscreenrightaccountchild" name="username">
-                  Max accuracy : {userdetails.maxaccuracy}
+                  Max accuracy : {userdetails.maxaccuracy}%
                 </div>
                 <hr className="hr2"/>
                 <div className="fullscreenrightaccountchild" name="emailid">

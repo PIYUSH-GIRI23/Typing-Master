@@ -21,7 +21,7 @@ export async function GET(req,res){
             email:userdetails.email,
             createdAt:userdetails.createdAt,
             maxwpm:userdetails.maxwpm,
-            maxaccuracy:userdetails.maxaccuracy,
+            maxaccuracy:userdetails.maxaccuracy.toFixed(2),
             passagelist:userdetails.passagelist,
             datewise:userdetails.datewise,
             totalattempt:userdetails.totalattempt,
