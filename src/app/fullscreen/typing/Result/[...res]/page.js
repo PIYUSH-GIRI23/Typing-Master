@@ -64,7 +64,7 @@ const Page = ({params}) => {
       const apifetch=async()=>{
         const token=JSON.parse(localStorage.getItem('rapidkeyscredentials'));
         let url=process.env.NEXT_PUBLIC_BACKEND;
-        let api=url+'/passage/resultpassage/';
+        let api=url+'/passage/resultpassage';
         let res=await fetch(api,{
           method:'POST',
           headers:{
@@ -78,6 +78,7 @@ const Page = ({params}) => {
           })
         })
         res=await res.json();
+        console.log(res)
         if(res.status===200){
           const {details}=res;
           console.log(details)
@@ -122,7 +123,7 @@ const Page = ({params}) => {
           setusergrosswpm(Math.floor((totalwpm*(accuracy*100/localStorage.getItem('charcounter'))/100)))
         }
     },[])
-    const apifetch=async()=>{
+    const apifetch2=async()=>{
       const url=process.env.NEXT_PUBLIC_BACKEND;
       const api=url+'/users/leaderboard';
       let response=await fetch(api);
@@ -144,7 +145,7 @@ const Page = ({params}) => {
       }
     }
     useEffect(()=>{
-      apifetch();
+      apifetch2();
     },[])
   useEffect(() => {
     const handleResize = () => {

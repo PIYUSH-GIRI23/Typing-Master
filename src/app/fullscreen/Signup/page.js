@@ -67,7 +67,7 @@ useEffect(() => {
       }
     )
     response=await response.json()
-    console.log(response)
+    // console.log(response)
     if(response.status==403){
       setUserExists(true)
     }

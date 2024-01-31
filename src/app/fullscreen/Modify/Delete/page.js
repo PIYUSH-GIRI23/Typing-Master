@@ -63,7 +63,7 @@ const Page = () => {
       }
     )
     res=await res.json();
-    console.log(res)
+    // console.log(res)
     if(res.status==200){
       localStorage.removeItem("typingmastercredentials");
       router.push("/fullscreen/Login");

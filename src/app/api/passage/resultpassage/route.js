@@ -10,7 +10,7 @@ export async function POST(req, res) {
 
 
     // Commenting out the Middleware call as it's not being used currently
-    let response = await Middleware(req, payload.username, Users);
+    let response = await Middleware(req, payload.username, users);
     if (response.status !== 200) {
       return NextResponse.json({ error: "Invalid Token", status: 401 });
     }

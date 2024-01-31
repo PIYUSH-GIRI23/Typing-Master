@@ -78,7 +78,7 @@ const [showcontent,setShowcontent]=useState(false);
     else setisnotlogin(true);
   },[])
   const handledelete=()=>{
-    console.log("clicked")
+    // console.log("clicked")
   }
   return showcontent ?(
     <div className="fullscreenaccount">

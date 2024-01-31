@@ -64,7 +64,7 @@ const Page = ({ params }) => {
         const passage=data.details.passage_content
         // console.log(data)
         let result = passage.map(word => word.split('').map(char => char !== ' ' ? [char] : [' ']));
-        console.log(result)
+        // console.log(result)
         setpassage(result);
         // sessionStorage.setItem('mistake',0);
         // sessionStorage.setItem('charcounter',0); // columncounter
@@ -77,10 +77,10 @@ const Page = ({ params }) => {
   const senddata=async()=>{
     let url=process.env.NEXT_PUBLIC_BACKEND;
     let api=url+'/passage';
-    console.log(api)
+    // console.log(api)
     let totalwpm;
     const time=parseInt(parseInt(params.practice[1])-clock); 
-    console.log(time);
+    // console.log(time);
     if (time==0) totalwpm=0;
     else if(time<60 && time>0 ){
       totalwpm=wordcounter*(Math.ceil(60/parseInt(time)))
@@ -106,7 +106,7 @@ const Page = ({ params }) => {
       })
     })
     res=await res.json();
-    console.log(res)
+    // console.log(res)
     if(res.status===200) return 1;
     else return 0;
   }
@@ -126,7 +126,7 @@ const Page = ({ params }) => {
       setShowContent(true);
       return;
     }
-    else console.log("all fine..u can proceed")
+    // else console.log("all fine..u can proceed")
     router.push('/fullscreen/typing/Result/'+params.practice[0]);
   }
   useEffect(() => {

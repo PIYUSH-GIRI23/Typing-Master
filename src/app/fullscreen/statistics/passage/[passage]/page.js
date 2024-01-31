@@ -43,7 +43,7 @@ const Page = ({params}) => {
       setpassagenotfound(!false);
       let {details,extra}=res;
       setpassageDetails(details);
-      console.log(details)
+      // console.log(details)
       // console.log(details[winner])
     }
     else{
@@ -64,9 +64,9 @@ const Page = ({params}) => {
     if(sec.length==1){
       sec='0'+sec;
     }
-    console.log(min,sec)
+    // console.log(min,sec)
     const arr=[parseInt(min[0]),parseInt(min[1]),parseInt(sec[0]),parseInt(sec[1])]
-    console.log(arr)
+    // console.log(arr)
     if((arr[0]==0 && arr[1]==0 && arr[2]==0 && arr[3]==0) || isNaN(arr[0]) || isNaN(arr[1]) || isNaN(arr[2]) || isNaN(arr[3])){
       setcorrecttime(true);
       // console.log("no")

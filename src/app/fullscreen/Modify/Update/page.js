@@ -42,7 +42,7 @@ const Page = () => {
         setmandatory(true);
         return;
     }
-    console.log(userdetails)
+    // console.log(userdetails)
     let res=await fetch(
       apifetch,
       {
